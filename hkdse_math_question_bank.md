@@ -1,698 +1,401 @@
+[hkdse_html.md](https://github.com/user-attachments/files/34130826/hkdse_html.md)
 [
   {
-    "id": "2012_Q1",
-    "year": 2012,
+    "id": "2023_Q1",
+    "year": 2023,
     "qNum": "Q1",
     "topicId": 1,
-    "topicName": "指数律 Indices Laws",
-    "topicNameEn": "Indices Laws",
-    "difficulty": "Easy",
-    "marks": 3,
-    "yearRef": "2012 DSE A1 Q1",
-    "titleZh": "指数律化简",
-    "titleEn": "Indices Simplification",
-    "questionZh": "化简 $\\frac{(a^2 b^{-3})^3}{a^{-4} b^2}$，并以正指数表示答案。",
-    "questionEn": "Simplify $\\frac{(a^2 b^{-3})^3}{a^{-4} b^2}$ and express your answer with positive indices.",
-    "solutionZh": [
-      {
-        "step": "原式 = $\\frac{a^6 b^{-9}}{a^{-4} b^2}$",
-        "mark": "1M",
-        "desc": "展开分子括号"
-      },
-      {
-        "step": "= $a^{6 - (-4)} \\cdot b^{-9 - 2} = a^{10} b^{-11}$",
-        "mark": "1M",
-        "desc": "合并同底指数"
-      },
-      {
-        "step": "= $\\frac{a^{10}}{b^{11}}$",
-        "mark": "1A",
-        "desc": "化负指数为正指数"
-      }
-    ],
-    "solutionEn": [
-      {
-        "step": "Expression = $\\frac{a^6 b^{-9}}{a^{-4} b^2}$",
-        "mark": "1M",
-        "desc": "Expand numerator"
-      },
-      {
-        "step": "= $a^{10} b^{-11}$",
-        "mark": "1M",
-        "desc": "Combine powers"
-      },
-      {
-        "step": "= $\\frac{a^{10}}{b^{11}}$",
-        "mark": "1A",
-        "desc": "Express with positive index"
-      }
-    ],
-    "pitfallsZh": "注意 $b^{-11}$ 必须写为分母的 $b^{11}$，不可漏掉正指数的要求。",
-    "pitfallsEn": "Ensure $b^{-11}$ is expressed in the denominator as $b^{11}$.",
-    "finalAnswer": "a^10 / b^11"
-  },
-  {
-    "id": "2013_Q2",
-    "year": 2013,
-    "qNum": "Q2",
-    "topicId": 2,
-    "topicName": "公式主理 Change of Subject",
+    "topicName": "公式主项变换",
     "topicNameEn": "Change of Subject",
     "difficulty": "Easy",
     "marks": 3,
-    "yearRef": "2013 DSE A1 Q2",
-    "titleZh": "变换公式的主理",
+    "yearRef": "2023 DSE A1 Q1",
+    "titleZh": "公式主项变换",
     "titleEn": "Change of Subject",
-    "questionZh": "令 $k$ 成为公式 $x = \\frac{3 + k}{2k - 1}$ 的主理。",
-    "questionEn": "Make $k$ the subject of the formula $x = \\frac{3 + k}{2k - 1}$.",
+    "questionZh": "化 $h$ 为公式 $\\frac{5}{h+k} = \\frac{k}{h-3}$ 的主项。",
+    "questionEn": "Make $h$ the subject of the formula $\\frac{5}{h+k} = \\frac{k}{h-3}$.",
     "solutionZh": [
-      {
-        "step": "$x(2k - 1) = 3 + k$",
-        "mark": "1M",
-        "desc": "两边同乘以分母"
-      },
-      {
-        "step": "$2kx - x = 3 + k \\implies 2kx - k = 3 + x$",
-        "mark": "1M",
-        "desc": "展开并整理含 $k$ 项"
-      },
-      {
-        "step": "$k(2x - 1) = 3 + x \\implies k = \\frac{x + 3}{2x - 1}$",
-        "mark": "1A",
-        "desc": "提取公因式 $k$ 并解出"
-      }
+      { "step": "$5(h-3) = k(h+k)$", "mark": "1M", "desc": "交叉相乘消去分母" },
+      { "step": "$5h - 15 = kh + k^2 \\implies 5h - kh = k^2 + 15$", "mark": "1M", "desc": "展开括号并将含 $h$ 的项集中在左侧" },
+      { "step": "$h(5-k) = k^2 + 15 \\implies h = \\frac{k^2+15}{5-k}$", "mark": "1A", "desc": "提取公因式 $h$ 并求出结果" }
     ],
     "solutionEn": [
-      {
-        "step": "$x(2k - 1) = 3 + k$",
-        "mark": "1M",
-        "desc": "Multiply both sides by denominator"
-      },
-      {
-        "step": "$2kx - x = 3 + k \\implies 2kx - k = 3 + x$",
-        "mark": "1M",
-        "desc": "Expand and group $k$ terms"
-      },
-      {
-        "step": "$k(2x - 1) = 3 + x \\implies k = \\frac{x + 3}{2x - 1}$",
-        "mark": "1A",
-        "desc": "Factor out $k$ and solve"
-      }
+      { "step": "$5(h-3) = k(h+k)$", "mark": "1M", "desc": "Cross multiply to remove denominators" },
+      { "step": "$5h - 15 = kh + k^2 \\implies 5h - kh = k^2 + 15$", "mark": "1M", "desc": "Expand and group terms containing $h$ on LHS" },
+      { "step": "$h(5-k) = k^2 + 15 \\implies h = \\frac{k^2+15}{5-k}$", "mark": "1A", "desc": "Factor out $h$ and solve" }
     ],
-    "pitfallsZh": "移项时注意负号，分母不可遗漏括号。",
-    "pitfallsEn": "Beware of sign errors when collecting terms.",
-    "finalAnswer": "k = (x + 3) / (2x - 1)"
+    "pitfallsZh": "注意移项时的符号变动，$-15$ 移至右侧变为 $+15$。",
+    "pitfallsEn": "Watch out for sign changes when moving terms across the equals sign.",
+    "finalAnswer": "h = (k^2 + 15) / (5 - k)"
   },
   {
-    "id": "2014_Q3",
-    "year": 2014,
-    "qNum": "Q3",
-    "topicId": 3,
-    "topicName": "多项式因式分解 Factorization",
-    "topicNameEn": "Factorization of Polynomials",
+    "id": "2023_Q2",
+    "year": 2023,
+    "qNum": "Q2",
+    "topicId": 2,
+    "topicName": "指数律",
+    "topicNameEn": "Laws of Indices",
     "difficulty": "Easy",
     "marks": 3,
-    "yearRef": "2014 DSE A1 Q3",
-    "titleZh": "因式分解",
-    "titleEn": "Polynomial Factorization",
-    "questionZh": "(a) 因式分解 $x^2 - 6xy + 9y^2$；\n(b) 因式分解 $x^2 - 6xy + 9y^2 - 4z^2$。",
-    "questionEn": "(a) Factorize $x^2 - 6xy + 9y^2$;\n(b) Factorize $x^2 - 6xy + 9y^2 - 4z^2$.",
+    "yearRef": "2023 DSE A1 Q2",
+    "titleZh": "指数律化简",
+    "titleEn": "Laws of Indices",
+    "questionZh": "化简 $\\frac{x^{-8}y}{(x^7 y^9)^{-6}}$，并以正指数表示答案。",
+    "questionEn": "Simplify $\\frac{x^{-8}y}{(x^7 y^9)^{-6}}$ and express your answer with positive indices.",
     "solutionZh": [
-      {
-        "step": "(a) $x^2 - 6xy + 9y^2 = (x - 3y)^2$",
-        "mark": "1A",
-        "desc": "完全平方公式"
-      },
-      {
-        "step": "(b) 原式 = $(x - 3y)^2 - (2z)^2$",
-        "mark": "1M",
-        "desc": "代入 (a) 结果并识别平方差"
-      },
-      {
-        "step": "= $(x - 3y - 2z)(x - 3y + 2z)$",
-        "mark": "1A",
-        "desc": "应用平方差公式分解"
-      }
+      { "step": "分母 $= x^{-42} y^{-54}$", "mark": "1M", "desc": "展开分母括号次方" },
+      { "step": "原式 $= x^{-8 - (-42)} y^{1 - (-54)}$", "mark": "1M", "desc": "同底数相除，指数相减" },
+      { "step": "$= x^{34} y^{55}$", "mark": "1A", "desc": "计算最终正指数结果" }
     ],
     "solutionEn": [
-      {
-        "step": "(a) $x^2 - 6xy + 9y^2 = (x - 3y)^2$",
-        "mark": "1A",
-        "desc": "Perfect square factorization"
-      },
-      {
-        "step": "(b) Expression = $(x - 3y)^2 - (2z)^2$",
-        "mark": "1M",
-        "desc": "Substitute (a) and apply difference of squares"
-      },
-      {
-        "step": "= $(x - 3y - 2z)(x - 3y + 2z)$",
-        "mark": "1A",
-        "desc": "Complete factorization"
-      }
+      { "step": "Denominator $= x^{-42} y^{-54}$", "mark": "1M", "desc": "Expand denominator power" },
+      { "step": "Expression $= x^{-8 - (-42)} y^{1 - (-54)}$", "mark": "1M", "desc": "Subtract indices for division" },
+      { "step": "$= x^{34} y^{55}$", "mark": "1A", "desc": "Simplify to positive indices" }
     ],
-    "pitfallsZh": "(b) 部份必须利用 (a) 的结论，将 $4z^2$ 写为 $(2z)^2$。",
-    "pitfallsEn": "Remember to convert $4z^2$ to $(2z)^2$.",
-    "finalAnswer": "(x - 3y - 2z)(x - 3y + 2z)"
+    "pitfallsZh": "注意负负得正：$-8 - (-42) = 34$；且 $y$ 的隐式指数为 1。",
+    "pitfallsEn": "Beware of double negatives: $-8 - (-42) = 34$; $y$ has an implicit power of 1.",
+    "finalAnswer": "x^34 * y^55"
   },
   {
-    "id": "2015_Q4",
-    "year": 2015,
-    "qNum": "Q4",
-    "topicId": 4,
-    "topicName": "不等式 Inequalities",
-    "topicNameEn": "Compound Inequalities",
-    "difficulty": "Easy",
-    "marks": 4,
-    "yearRef": "2015 DSE A1 Q4",
-    "titleZh": "复合不等式",
-    "titleEn": "Compound Inequalities",
-    "questionZh": "(a) 解不等式 $\\frac{2x + 1}{3} > 5 - x$。\n(b) 求满足 (a) 中不等式且满足 $2x + 7 \\ge 0$ 的最小整数 $x$。",
-    "questionEn": "(a) Solve $\\frac{2x + 1}{3} > 5 - x$.\n(b) Find the smallest integer $x$ satisfying both (a) and $2x + 7 \\ge 0$.",
-    "solutionZh": [
-      {
-        "step": "(a) $2x + 1 > 15 - 3x \\implies 5x > 14 \\implies x > 2.8$",
-        "mark": "2A",
-        "desc": "去分母并求得不等式解"
-      },
-      {
-        "step": "(b) $2x + 7 \\ge 0 \\implies x \\ge -3.5$",
-        "mark": "1M",
-        "desc": "解第二个不等式"
-      },
-      {
-        "step": "同时满足的区间为 $x > 2.8$。最小整数为 $3$。",
-        "mark": "1A",
-        "desc": "确定最小整数解"
-      }
-    ],
-    "solutionEn": [
-      {
-        "step": "(a) $2x + 1 > 15 - 3x \\implies 5x > 14 \\implies x > 2.8$",
-        "mark": "2A",
-        "desc": "Solve linear inequality"
-      },
-      {
-        "step": "(b) $2x + 7 \\ge 0 \\implies x \\ge -3.5$",
-        "mark": "1M",
-        "desc": "Solve second inequality"
-      },
-      {
-        "step": "Combined region $x > 2.8$. Smallest integer is $3$.",
-        "mark": "1A",
-        "desc": "State smallest integer"
-      }
-    ],
-    "pitfallsZh": "$x > 2.8$ 时，不包含 $2.8$，最小整数应取 $3$。",
-    "pitfallsEn": "Since $x > 2.8$, $x$ cannot be $2$, the smallest integer is $3$.",
-    "finalAnswer": "(a) x > 14/5, (b) x = 3"
-  },
-  {
-    "id": "2016_Q5",
-    "year": 2016,
-    "qNum": "Q5",
-    "topicId": 5,
-    "topicName": "百分率与应用题 Percentages & Applications",
-    "topicNameEn": "Percentages & Applications",
-    "difficulty": "Easy",
-    "marks": 4,
-    "yearRef": "2016 DSE A1 Q5",
-    "titleZh": "百分率应用题",
-    "titleEn": "Percentage Application",
-    "questionZh": "某书本标价比成本高出 $40\\%$。以八折售出后获利 $\\$18$。求书本成本。",
-    "questionEn": "The marked price of a book is $40\\%$ above cost. Sold at $20\\%$ discount with profit $\\$18$. Find the cost.",
-    "solutionZh": [
-      {
-        "step": "设成本为 $\\$C$。标价 $= 1.4C$",
-        "mark": "1M",
-        "desc": "设未知数并表示标价"
-      },
-      {
-        "step": "售价 $= 1.4C \\times 0.8 = 1.12C$",
-        "mark": "1M",
-        "desc": "计算八折售价"
-      },
-      {
-        "step": "利润 $= 1.12C - C = 0.12C = 18$",
-        "mark": "1M",
-        "desc": "列出利润方程"
-      },
-      {
-        "step": "$C = 150$",
-        "mark": "1A",
-        "desc": "解得成本为 $\\$150$"
-      }
-    ],
-    "solutionEn": [
-      {
-        "step": "Let cost be $\\$C$. Marked price $= 1.4C$",
-        "mark": "1M",
-        "desc": "Express marked price"
-      },
-      {
-        "step": "Selling price $= 1.4C \\times 0.8 = 1.12C$",
-        "mark": "1M",
-        "desc": "Apply $20\\%$ discount"
-      },
-      {
-        "step": "Profit $= 1.12C - C = 0.12C = 18$",
-        "mark": "1M",
-        "desc": "Form profit equation"
-      },
-      {
-        "step": "$C = 150$",
-        "mark": "1A",
-        "desc": "Solve for cost"
-      }
-    ],
-    "pitfallsZh": "折扣作用于标价而非成本。",
-    "pitfallsEn": "Discount applies to marked price, not cost price.",
-    "finalAnswer": "$150"
-  },
-  {
-    "id": "2017_Q6",
-    "year": 2017,
-    "qNum": "Q6",
-    "topicId": 6,
-    "topicName": "求积法与扇形 Mensuration & Sector",
-    "topicNameEn": "Mensuration & Sector",
-    "difficulty": "Easy",
-    "marks": 4,
-    "yearRef": "2017 DSE A1 Q6",
-    "titleZh": "扇形弧长与周长",
-    "titleEn": "Arc Length & Perimeter of Sector",
-    "questionZh": "扇形半径 $12\\text{ cm}$，圆心角 $120^\\circ$。(a) 求弧长（以 $\\pi$ 表示）；(b) 求周长（精确至整数）。",
-    "questionEn": "Sector radius $12\\text{ cm}$, angle $120^\\circ$. (a) Find arc length in $\\pi$; (b) Find perimeter to nearest cm.",
-    "solutionZh": [
-      {
-        "step": "(a) 弧长 $= 2\\pi(12) \\times \\frac{120}{360} = 8\\pi\\text{ cm}$",
-        "mark": "2A",
-        "desc": "计算弧长"
-      },
-      {
-        "step": "(b) 周长 $= 8\\pi + 12 + 12 = 8\\pi + 24 \\approx 49.13 \\approx 49\\text{ cm}$",
-        "mark": "2A",
-        "desc": "加上两条半径并四舍五入"
-      }
-    ],
-    "solutionEn": [
-      {
-        "step": "(a) Arc length $= 2\\pi(12) \\times \\frac{120}{360} = 8\\pi\\text{ cm}$",
-        "mark": "2A",
-        "desc": "Calculate arc length"
-      },
-      {
-        "step": "(b) Perimeter $= 8\\pi + 24 \\approx 49.13 \\approx 49\\text{ cm}$",
-        "mark": "2A",
-        "desc": "Add two radii and round"
-      }
-    ],
-    "pitfallsZh": "周长必须包含两条半径 $2r$。",
-    "pitfallsEn": "Do not forget to add two radii ($2r$) for total perimeter.",
-    "finalAnswer": "(a) 8pi cm, (b) 49 cm"
-  },
-  {
-    "id": "2018_Q7",
-    "year": 2018,
-    "qNum": "Q7",
-    "topicId": 7,
-    "topicName": "多项式与余式定理 Polynomials & Remainder Theorem",
-    "topicNameEn": "Polynomials & Remainder Theorem",
-    "difficulty": "Medium",
-    "marks": 5,
-    "yearRef": "2018 DSE A1 Q7",
-    "titleZh": "余式与因式定理",
-    "titleEn": "Remainder & Factor Theorem",
-    "questionZh": "设 $f(x) = 4x^3 - kx + 3$。当 $f(x)$ 除以 $x - 1$ 时余数为 $5$。(a) 求 $k$；(b) 证明 $x + 2$ 为 $f(x) + 25$ 的因式。",
-    "questionEn": "Let $f(x) = 4x^3 - kx + 3$. Remainder is $5$ when divided by $x - 1$. (a) Find $k$; (b) Prove $x + 2$ is a factor of $f(x) + 25$.",
-    "solutionZh": [
-      {
-        "step": "(a) $f(1) = 5 \\implies 4(1)^3 - k(1) + 3 = 5 \\implies k = 2$",
-        "mark": "2A",
-        "desc": "应用余式定理解 $k$"
-      },
-      {
-        "step": "(b) 设 $g(x) = f(x) + 25 = 4x^3 - 2x + 28$",
-        "mark": "1M",
-        "desc": "写出 $g(x)$"
-      },
-      {
-        "step": "$g(-2) = 4(-2)^3 - 2(-2) + 28 = -32 + 4 + 28 = 0$",
-        "mark": "1M",
-        "desc": "计算 $g(-2)$"
-      },
-      {
-        "step": "由因式定理，$x + 2$ 为 $f(x) + 25$ 的因式。",
-        "mark": "1A",
-        "desc": "结论成立"
-      }
-    ],
-    "solutionEn": [
-      {
-        "step": "(a) $f(1) = 5 \\implies 4(1)^3 - k(1) + 3 = 5 \\implies k = 2$",
-        "mark": "2A",
-        "desc": "Solve for $k$"
-      },
-      {
-        "step": "(b) Let $g(x) = f(x) + 25 = 4x^3 - 2x + 28$",
-        "mark": "1M",
-        "desc": "Define $g(x)$"
-      },
-      {
-        "step": "$g(-2) = 4(-8) + 4 + 28 = 0$",
-        "mark": "1M",
-        "desc": "Show $g(-2) = 0$"
-      },
-      {
-        "step": "By Factor Theorem, $x + 2$ is a factor.",
-        "mark": "1A",
-        "desc": "Conclude proof"
-      }
-    ],
-    "pitfallsZh": "证明因式时必须明确写出 $g(-2) = 0$。",
-    "pitfallsEn": "Explicitly state $g(-2) = 0$ to satisfy Factor Theorem requirement.",
-    "finalAnswer": "k = 2"
-  },
-  {
-    "id": "2019_Q8",
-    "year": 2019,
-    "qNum": "Q8",
-    "topicId": 8,
-    "topicName": "坐标几何 Coordinate Geometry",
-    "topicNameEn": "Coordinate Geometry",
-    "difficulty": "Medium",
-    "marks": 5,
-    "yearRef": "2019 DSE A1 Q8",
-    "titleZh": "直线的交点与垂直",
-    "titleEn": "Intersection & Perpendicular Lines",
-    "questionZh": "直线 $L_1: 2x - 3y + 12 = 0$ 交 $x$-轴于 $A$，交 $y$-轴于 $B$。(a) 求 $A$ 及 $B$；(b) 求过 $B$ 且垂直于 $L_1$ 的直线 $L_2$ 的方程。",
-    "questionEn": "Line $L_1: 2x - 3y + 12 = 0$ cuts axes at $A$ and $B$. (a) Find $A$ and $B$; (b) Find equation of $L_2$ through $B$ perpendicular to $L_1$.",
-    "solutionZh": [
-      {
-        "step": "(a) $y=0 \\implies A(-6, 0)$；$x=0 \\implies B(0, 4)$",
-        "mark": "2A",
-        "desc": "求两轴截距坐标"
-      },
-      {
-        "step": "(b) $L_1$ 斜率 $m_1 = \\frac{2}{3} \\implies L_2$ 斜率 $m_2 = -\\frac{3}{2}$",
-        "mark": "1M",
-        "desc": "计算垂直斜率"
-      },
-      {
-        "step": "$L_2: y - 4 = -\\frac{3}{2}(x - 0) \\implies 3x + 2y - 8 = 0$",
-        "mark": "2A",
-        "desc": "用点斜式写出方程"
-      }
-    ],
-    "solutionEn": [
-      {
-        "step": "(a) $A(-6, 0)$ and $B(0, 4)$",
-        "mark": "2A",
-        "desc": "State axis intercepts"
-      },
-      {
-        "step": "(b) Slope $m_1 = 2/3 \\implies m_2 = -3/2$",
-        "mark": "1M",
-        "desc": "Find perpendicular slope"
-      },
-      {
-        "step": "$L_2: 3x + 2y - 8 = 0$",
-        "mark": "2A",
-        "desc": "Write equation in general form"
-      }
-    ],
-    "pitfallsZh": "垂直斜率满足 $m_1 \\times m_2 = -1$。",
-    "pitfallsEn": "Perpendicular slopes product equals $-1$.",
-    "finalAnswer": "A(-6, 0), B(0, 4); 3x + 2y - 8 = 0"
-  },
-  {
-    "id": "2020_Q9",
-    "year": 2020,
-    "qNum": "Q9",
-    "topicId": 9,
-    "topicName": "统计学 Statistics",
-    "topicNameEn": "Statistics",
-    "difficulty": "Medium",
-    "marks": 5,
-    "yearRef": "2020 DSE A1 Q9",
-    "titleZh": "数据变换与统计量",
-    "titleEn": "Data Transformation & Statistics",
-    "questionZh": "某组数据平均值为 $65$，标准差为 $8$。若每项数据均增加 $5\\%$，求新数据的 (a) 平均值；(b) 标准差及方差。",
-    "questionEn": "Data mean is $65$, standard deviation is $8$. If each data increases by $5\\%$, find (a) new mean; (b) new SD and variance.",
-    "solutionZh": [
-      {
-        "step": "(a) 新平均值 $= 65 \\times 1.05 = 68.25$",
-        "mark": "2A",
-        "desc": "平均值乘以 $1.05$"
-      },
-      {
-        "step": "(b) 新标准差 $= 8 \\times 1.05 = 8.4$",
-        "mark": "1A",
-        "desc": "标准差乘以 $1.05$"
-      },
-      {
-        "step": "新方差 $= (8.4)^2 = 70.56$",
-        "mark": "2A",
-        "desc": "方差等于标准差平方"
-      }
-    ],
-    "solutionEn": [
-      {
-        "step": "(a) New mean $= 65 \\times 1.05 = 68.25$",
-        "mark": "2A",
-        "desc": "Scale mean"
-      },
-      {
-        "step": "(b) New SD $= 8 \\times 1.05 = 8.4$",
-        "mark": "1A",
-        "desc": "Scale standard deviation"
-      },
-      {
-        "step": "New variance $= 8.4^2 = 70.56$",
-        "mark": "2A",
-        "desc": "Square standard deviation"
-      }
-    ],
-    "pitfallsZh": "方差按 $k^2$ 比例放缩。",
-    "pitfallsEn": "Variance scales by factor squared $k^2$.",
-    "finalAnswer": "(a) 68.25, (b) SD = 8.4, Variance = 70.56"
-  },
-  {
-    "id": "2021_Q10",
-    "year": 2021,
-    "qNum": "Q10",
-    "topicId": 10,
-    "topicName": "等差与等比数列 AS & GS",
-    "topicNameEn": "Arithmetic & Geometric Sequences",
-    "difficulty": "Hard",
-    "marks": 7,
-    "yearRef": "2021 DSE A2 Q10",
-    "titleZh": "等比数列求和与对数",
-    "titleEn": "Geometric Series Sum & Logarithms",
-    "questionZh": "等比数列首项为 $3$，公比为 $2$。(a) 求 $T_n$；(b) 求使 $S_n > 3000$ 的最小整数 $n$。",
-    "questionEn": "Geometric sequence $a = 3, r = 2$. (a) Find $T_n$; (b) Find least integer $n$ such that $S_n > 3000$.",
-    "solutionZh": [
-      {
-        "step": "(a) $T_n = 3 \\cdot 2^{n-1}$",
-        "mark": "1A",
-        "desc": "通项公式"
-      },
-      {
-        "step": "(b) $S_n = \\frac{3(2^n - 1)}{2 - 1} = 3(2^n - 1) > 3000 \\implies 2^n > 1001$",
-        "mark": "2M",
-        "desc": "建立不等式"
-      },
-      {
-        "step": "$n > \\frac{\\log 1001}{\\log 2} \\approx 9.967 \\implies n = 10$",
-        "mark": "4A",
-        "desc": "用对数求解并进位"
-      }
-    ],
-    "solutionEn": [
-      {
-        "step": "(a) $T_n = 3 \\cdot 2^{n-1}$",
-        "mark": "1A",
-        "desc": "General term"
-      },
-      {
-        "step": "(b) $S_n = 3(2^n - 1) > 3000 \\implies 2^n > 1001$",
-        "mark": "2M",
-        "desc": "Formulate inequality"
-      },
-      {
-        "step": "$n > \\frac{\\log 1001}{\\log 2} \\approx 9.967 \\implies n = 10$",
-        "mark": "4A",
-        "desc": "Solve via log and round up"
-      }
-    ],
-    "pitfallsZh": "$n$ 必须向上取整为最小整数 $10$。",
-    "pitfallsEn": "Round up to nearest higher integer $n = 10$.",
-    "finalAnswer": "(a) T_n = 3*2^(n-1), (b) n = 10"
-  },
-  {
-    "id": "2022_Q11",
+    "id": "2022_Q1",
     "year": 2022,
-    "qNum": "Q11",
-    "topicId": 11,
-    "topicName": "排列组合与概率 Permutation & Combination",
-    "topicNameEn": "Permutations & Combinations",
-    "difficulty": "Hard",
-    "marks": 6,
-    "yearRef": "2022 DSE B Q11",
-    "titleZh": "排列组合与概率",
-    "titleEn": "Combinations & Probability",
-    "questionZh": "从 $5$ 男 $6$ 女中选 $4$ 人组成委员会。(a) 恰有 $2$ 男 $2$ 女的选法；(b) 至少有 $1$ 名男生的概率。",
-    "questionEn": "Form 4-person committee from 5 boys, 6 girls. (a) Ways with 2 boys, 2 girls; (b) Probability of at least 1 boy.",
+    "qNum": "Q1",
+    "topicId": 2,
+    "topicName": "指数律",
+    "topicNameEn": "Laws of Indices",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2022 DSE A1 Q1",
+    "titleZh": "指数律化简",
+    "titleEn": "Laws of Indices",
+    "questionZh": "化简 $\\frac{(a^3 b^{-2})^4}{a^{-5} b^6}$，并以正指数表示答案。",
+    "questionEn": "Simplify $\\frac{(a^3 b^{-2})^4}{a^{-5} b^6}$ and express your answer with positive indices.",
     "solutionZh": [
-      {
-        "step": "(a) 选法 $= C_2^5 \\times C_2^6 = 10 \\times 15 = 150$",
-        "mark": "2A",
-        "desc": "组合数乘法法则"
-      },
-      {
-        "step": "(b) 总选法 $= C_4^{11} = 330$；全为女生的选法 $= C_4^6 = 15$",
-        "mark": "2M",
-        "desc": "计算总数及互补事件"
-      },
-      {
-        "step": "概率 $= 1 - \\frac{15}{330} = \\frac{21}{22}$",
-        "mark": "2A",
-        "desc": "互补事件概率"
-      }
+      { "step": "分子 $= a^{12} b^{-8}$", "mark": "1M", "desc": "展开分子括号" },
+      { "step": "原式 $= a^{12 - (-5)} b^{-8 - 6} = a^{17} b^{-14}$", "mark": "1M", "desc": "同底数指数相减" },
+      { "step": "$= \\frac{a^{17}}{b^{14}}$", "mark": "1A", "desc": "转化为正指数分式" }
     ],
     "solutionEn": [
-      {
-        "step": "(a) Ways $= C_2^5 \\times C_2^6 = 10 \\times 15 = 150$",
-        "mark": "2A",
-        "desc": "Product of combinations"
-      },
-      {
-        "step": "(b) Total $= C_4^{11} = 330$; All girls $= C_4^6 = 15$",
-        "mark": "2M",
-        "desc": "Sample space and complementary event"
-      },
-      {
-        "step": "Probability $= 1 - \\frac{15}{330} = \\frac{21}{22}$",
-        "mark": "2A",
-        "desc": "Complementary probability"
-      }
+      { "step": "Numerator $= a^{12} b^{-8}$", "mark": "1M", "desc": "Expand numerator power" },
+      { "step": "Expression $= a^{12 - (-5)} b^{-8 - 6} = a^{17} b^{-14}$", "mark": "1M", "desc": "Subtract exponents" },
+      { "step": "$= \\frac{a^{17}}{b^{14}}$", "mark": "1A", "desc": "Express in positive index form" }
     ],
-    "pitfallsZh": "“至少1名男生”利用 $1 - P(\\text{全女生})$ 计算最快。",
-    "pitfallsEn": "Use $1 - P(\\text{all girls})$ for 'at least one' problems.",
-    "finalAnswer": "(a) 150, (b) 21/22"
+    "pitfallsZh": "题目要求“以正指数表示”，答案不可保留 $b^{-14}$。",
+    "pitfallsEn": "Answer must be expressed in positive index form; do not leave negative powers.",
+    "finalAnswer": "a^17 / b^14"
   },
   {
-    "id": "2023_Q12",
-    "year": 2023,
-    "qNum": "Q12",
-    "topicId": 12,
-    "topicName": "圆几何 Circle Geometry",
-    "topicNameEn": "Circle Geometry",
-    "difficulty": "Hard",
-    "marks": 7,
-    "yearRef": "2023 DSE B Q12",
-    "titleZh": "圆切线与交错弓形角",
-    "titleEn": "Tangents & Alternate Segment",
-    "questionZh": "$AB$ 为圆直径，$TP$ 切圆于 $P$。若 $\\angle PAT = 35^\\circ$，求 $\\angle APT$ 及 $\\angle PBA$。",
-    "questionEn": "$AB$ is diameter, $TP$ tangent at $P$. If $\\angle PAT = 35^\\circ$, find $\\angle APT$ and $\\angle PBA$.",
+    "id": "2022_Q2",
+    "year": 2022,
+    "qNum": "Q2",
+    "topicId": 4,
+    "topicName": "方程与应用题",
+    "topicNameEn": "Equations & Applications",
+    "difficulty": "Medium",
+    "marks": 4,
+    "yearRef": "2022 DSE A1 Q2",
+    "titleZh": "二元一次方程应用题",
+    "titleEn": "Simultaneous Linear Equations",
+    "questionZh": "成人的入场费为 $\$70$，小童的入场费为 $\$30$。现卖出 120 张门票，总收入为 $\$5600$。求卖出成人门票的数目。",
+    "questionEn": "The ticket price for an adult is $\$70$ and for a child is $\$30$. A total of 120 tickets are sold for $\$5600$. Find the number of adult tickets sold.",
     "solutionZh": [
-      {
-        "step": "连接 $BP$。$\\angle APB = 90^\\circ$（半圆上的圆周角）。",
-        "mark": "1M",
-        "desc": "半圆上的圆周角"
-      },
-      {
-        "step": "$\\angle PBA = 180^\\circ - 90^\\circ - 35^\\circ = 55^\\circ$",
-        "mark": "2A",
-        "desc": "求得 $\\angle PBA$"
-      },
-      {
-        "step": "$\\angle APT = \\angle PBA = 55^\\circ$（交错弓形角）。",
-        "mark": "4A",
-        "desc": "应用交错弓形切角定理"
-      }
+      { "step": "设卖出成人门票 $x$ 张，小童门票 $y$ 张。联立方程：\\n$x + y = 120$ \\n$70x + 30y = 5600$", "mark": "1M", "desc": "正确建立二元一次方程组" },
+      { "step": "$70x + 30(120 - x) = 5600$", "mark": "1M", "desc": "消元法代入求解" },
+      { "step": "$40x = 2000 \\implies x = 50$", "mark": "1A", "desc": "解出 $x$ 的值" },
+      { "step": "答：卖出成人门票的数目为 50 张。", "mark": "1A", "desc": "完整作答" }
     ],
     "solutionEn": [
-      {
-        "step": "Join $BP$. $\\angle APB = 90^\\circ$ (angle in semi-circle).",
-        "mark": "1M",
-        "desc": "Angle in semi-circle"
-      },
-      {
-        "step": "$\\angle PBA = 180^\\circ - 90^\\circ - 35^\\circ = 55^\\circ$",
-        "mark": "2A",
-        "desc": "Find $\\angle PBA$"
-      },
-      {
-        "step": "$\\angle APT = \\angle PBA = 55^\\circ$ ($\n\\angle$ in alt. segment).",
-        "mark": "4A",
-        "desc": "Alternate segment theorem"
-      }
+      { "step": "Let $x$ be adult tickets and $y$ be child tickets:\\n$x + y = 120$\\n$70x + 30y = 5600$", "mark": "1M", "desc": "Set up linear equations" },
+      { "step": "$70x + 30(120 - x) = 5600$", "mark": "1M", "desc": "Substitute to solve" },
+      { "step": "$40x = 2000 \\implies x = 50$", "mark": "1A", "desc": "Solve for $x$" },
+      { "step": "The number of adult tickets sold is 50.", "mark": "1A", "desc": "Final answer statement" }
     ],
-    "pitfallsZh": "计算几何角度时需正确套用交错弓形角定理。",
-    "pitfallsEn": "Identify alternate segment angle accurately.",
-    "finalAnswer": "angle APT = 55°, angle PBA = 55°"
+    "pitfallsZh": "注意分清成人和小童的价格，避免 $70$ 和 $30$ 的系数倒置。",
+    "pitfallsEn": "Take care not to swap the prices for adult and child tickets.",
+    "finalAnswer": "50"
   },
   {
-    "id": "2024_Q13",
-    "year": 2024,
-    "qNum": "Q13",
-    "topicId": 13,
-    "topicName": "三维三角学 3D Trigonometry",
-    "topicNameEn": "3D Trigonometry",
-    "difficulty": "Hard",
-    "marks": 8,
-    "yearRef": "2024 DSE B Q13",
-    "titleZh": "正四面体两面角",
-    "titleEn": "Regular Tetrahedron Dihedral Angle",
-    "questionZh": "$V-ABC$ 为正四面体，边长 $6\\text{ cm}$。(a) 求底面积；(b) 求侧面与底面之两面角（精确至度）。",
-    "questionEn": "Regular tetrahedron $V-ABC$ side length $6\\text{ cm}$. (a) Base area; (b) Dihedral angle between face and base.",
+    "id": "2021_Q1",
+    "year": 2021,
+    "qNum": "Q1",
+    "topicId": 2,
+    "topicName": "指数律",
+    "topicNameEn": "Laws of Indices",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2021 DSE A1 Q1",
+    "titleZh": "指数律化简",
+    "titleEn": "Laws of Indices",
+    "questionZh": "化简 $(a b^3)(a^{-2} b^4)^5$，并以正指数表示答案。",
+    "questionEn": "Simplify $(a b^3)(a^{-2} b^4)^5$ and express your answer with positive indices.",
     "solutionZh": [
-      {
-        "step": "(a) 底面积 $= \\frac{1}{2}(6)(6)\\sin 60^\\circ = 9\\sqrt{3}\\text{ cm}^2 \\approx 15.59\\text{ cm}^2$",
-        "mark": "2A",
-        "desc": "等边三角形面积"
-      },
-      {
-        "step": "(b) 取 $AB$ 中点 $M$。$VM = CM = 6\\sin 60^\\circ = 3\\sqrt{3}$",
-        "mark": "2M",
-        "desc": "计算中线与两面角交线高"
-      },
-      {
-        "step": "$\\cos \\angle VMC = \\frac{(3\\sqrt{3})^2 + (3\\sqrt{3})^2 - 6^2}{2(3\\sqrt{3})(3\\sqrt{3})} = \\frac{1}{3}$",
-        "mark": "2M",
-        "desc": "余弦定理"
-      },
-      {
-        "step": "$\\angle VMC = \\cos^{-1}(1/3) \\approx 70.53^\\circ \\approx 71^\\circ$",
-        "mark": "2A",
-        "desc": "得出两面角"
-      }
+      { "step": "$(a^{-2} b^4)^5 = a^{-10} b^{20}$", "mark": "1M", "desc": "展开括号次方" },
+      { "step": "原式 $= a^{1 + (-10)} b^{3 + 20} = a^{-9} b^{23}$", "mark": "1M", "desc": "同底数相乘，指数相加" },
+      { "step": "$= \\frac{b^{23}}{a^9}$", "mark": "1A", "desc": "化为正指数表示" }
     ],
     "solutionEn": [
-      {
-        "step": "(a) Area $= \\frac{1}{2}(6)(6)\\sin 60^\\circ = 9\\sqrt{3}\\text{ cm}^2$",
-        "mark": "2A",
-        "desc": "Base triangle area"
-      },
-      {
-        "step": "(b) Midpoint $M$ of $AB$. $VM = CM = 3\\sqrt{3}$",
-        "mark": "2M",
-        "desc": "Perpendicular heights to line of intersection"
-      },
-      {
-        "step": "$\\cos \\angle VMC = \\frac{27 + 27 - 36}{54} = \\frac{1}{3}$",
-        "mark": "2M",
-        "desc": "Cosine Rule"
-      },
-      {
-        "step": "$\\angle VMC = \\cos^{-1}(1/3) \\approx 71^\\circ$",
-        "mark": "2A",
-        "desc": "Dihedral angle to nearest degree"
-      }
+      { "step": "$(a^{-2} b^4)^5 = a^{-10} b^{20}$", "mark": "1M", "desc": "Expand bracket power" },
+      { "step": "Expression $= a^{1 + (-10)} b^{3 + 20} = a^{-9} b^{23}$", "mark": "1M", "desc": "Add indices for multiplication" },
+      { "step": "$= \\frac{b^{23}}{a^9}$", "mark": "1A", "desc": "Express with positive index" }
     ],
-    "pitfallsZh": "两面角必须在交线垂直面上测量（取中点高线）。",
-    "pitfallsEn": "Ensure perpendiculars meet at same point on intersection line.",
-    "finalAnswer": "(a) 9sqrt(3) cm^2, (b) 71°"
+    "pitfallsZh": "注意第一个 $a$ 的指数是 1 而不是 0。",
+    "pitfallsEn": "The index of the first $a$ is 1, not 0.",
+    "finalAnswer": "b^23 / a^9"
+  },
+  {
+    "id": "2021_Q2",
+    "year": 2021,
+    "qNum": "Q2",
+    "topicId": 5,
+    "topicName": "不等式",
+    "topicNameEn": "Linear Inequalities",
+    "difficulty": "Medium",
+    "marks": 4,
+    "yearRef": "2021 DSE A1 Q2",
+    "titleZh": "一元一次不等式",
+    "titleEn": "Linear Inequalities",
+    "questionZh": "(a) 解不等式 $\\frac{3x - 2}{5} > 2x + 1$。\\n(b) 求满足 (a) 的不等式的最大整数。",
+    "questionEn": "(a) Solve the inequality $\\frac{3x - 2}{5} > 2x + 1$.\\n(b) Find the maximum integer satisfying the inequality in (a).",
+    "solutionZh": [
+      { "step": "$3x - 2 > 10x + 5$", "mark": "1M", "desc": "两边同乘以 5 消去分母" },
+      { "step": "$-7x > 7 \\implies x < -1$", "mark": "1A", "desc": "同除以负数 $-7$，不等号变向" },
+      { "step": "小于 $-1$ 的最大整数为 $-2$。", "mark": "1A", "desc": "求出符合条件的最大整数" }
+    ],
+    "solutionEn": [
+      { "step": "$3x - 2 > 10x + 5$", "mark": "1M", "desc": "Multiply both sides by 5" },
+      { "step": "$-7x > 7 \\implies x < -1$", "mark": "1A", "desc": "Divide by $-7$ and reverse inequality sign" },
+      { "step": "The maximum integer strictly less than $-1$ is $-2$.", "mark": "1A", "desc": "Identify maximum integer" }
+    ],
+    "pitfallsZh": "除以负数时忘记倒转不等号（由 $>$ 变 $<$）；$-1$ 本身不符合条件（因必须严格小于）。",
+    "pitfallsEn": "Forget to flip inequality sign when dividing by negative number; $-1$ is excluded as inequality is strict.",
+    "finalAnswer": "x < -1 ; Maximum Integer = -2"
+  },
+  {
+    "id": "2020_Q1",
+    "year": 2020,
+    "qNum": "Q1",
+    "topicId": 2,
+    "topicName": "指数律",
+    "topicNameEn": "Laws of Indices",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2020 DSE A1 Q1",
+    "titleZh": "指数律化简",
+    "titleEn": "Laws of Indices",
+    "questionZh": "化简 $\\frac{(mn^{-2})^5}{m^{-4}}$，并以正指数表示答案。",
+    "questionEn": "Simplify $\\frac{(mn^{-2})^5}{m^{-4}}$ and express your answer with positive indices.",
+    "solutionZh": [
+      { "step": "分子 $= m^5 n^{-10}$", "mark": "1M", "desc": "展开分子次方" },
+      { "step": "原式 $= m^{5 - (-4)} n^{-10} = m^9 n^{-10}$", "mark": "1M", "desc": "同底数相除" },
+      { "step": "$= \\frac{m^9}{n^{10}}$", "mark": "1A", "desc": "化为正指数形式" }
+    ],
+    "solutionEn": [
+      { "step": "Numerator $= m^5 n^{-10}$", "mark": "1M", "desc": "Expand numerator power" },
+      { "step": "Expression $= m^{5 - (-4)} n^{-10} = m^9 n^{-10}$", "mark": "1M", "desc": "Apply division law for base $m$" },
+      { "step": "$= \\frac{m^9}{n^{10}}$", "mark": "1A", "desc": "Express with positive index" }
+    ],
+    "pitfallsZh": "分母的负指数移至分子时注意符号：$5 - (-4) = 9$。",
+    "pitfallsEn": "Careful with double negative: $5 - (-4) = 9$.",
+    "finalAnswer": "m^9 / n^10"
+  },
+  {
+    "id": "2020_Q2",
+    "year": 2020,
+    "qNum": "Q2",
+    "topicId": 6,
+    "topicName": "余数定理与多项式",
+    "topicNameEn": "Remainder Theorem & Polynomials",
+    "difficulty": "Medium",
+    "marks": 5,
+    "yearRef": "2020 DSE A2 Q2",
+    "titleZh": "多项式与余数定理",
+    "titleEn": "Remainder Theorem",
+    "questionZh": "设 $f(x) = 2x^3 + ax^2 + bx - 12$。当 $f(x)$ 除以 $(x - 2)$ 时，余数为 0；当 $f(x)$ 除以 $(x + 1)$ 时，余数为 $-18$。\\n(a) 求 $a$ 及 $b$ 的值。\\n(b) 解方程 $f(x) = 0$。",
+    "questionEn": "Let $f(x) = 2x^3 + ax^2 + bx - 12$. When $f(x)$ is divided by $(x - 2)$, remainder is 0; when divided by $(x + 1)$, remainder is $-18$.\\n(a) Find $a$ and $b$.\\n(b) Solve $f(x) = 0$.",
+    "solutionZh": [
+      { "step": "$f(2) = 0 \\implies 4a + 2b = -4 \\implies 2a + b = -2$", "mark": "1M", "desc": "根据余数定理代入 $x=2$" },
+      { "step": "$f(-1) = -18 \\implies a - b = -4$", "mark": "1M", "desc": "代入 $x=-1$" },
+      { "step": "解得 $a = -2, b = 2$", "mark": "1A", "desc": "联立求解 $a$ 和 $b$" },
+      { "step": "$f(x) = (x - 2)(2x^2 + 2x + 6) = 0$", "mark": "1M", "desc": "多项式因式分解" },
+      { "step": "实数解为 $x = 2$ （二次部分无实解）。", "mark": "1A", "desc": "得出方程实解" }
+    ],
+    "solutionEn": [
+      { "step": "$f(2) = 0 \\implies 2a + b = -2$", "mark": "1M", "desc": "Apply remainder theorem for $x=2$" },
+      { "step": "$f(-1) = -18 \\implies a - b = -4$", "mark": "1M", "desc": "Apply remainder theorem for $x=-1$" },
+      { "step": "$a = -2, b = 2$", "mark": "1A", "desc": "Solve linear system" },
+      { "step": "$f(x) = (x - 2)(2x^2 + 2x + 6) = 0$", "mark": "1M", "desc": "Factorize polynomial" },
+      { "step": "Real root $x = 2$ (quadratic part has non-real roots).", "mark": "1A", "desc": "Provide real roots" }
+    ],
+    "pitfallsZh": "$2x^2 + 2x + 6 = 0$ 的判别式 $\\Delta < 0$，无实根，别强行求解。",
+    "pitfallsEn": "The discriminant of $2x^2 + 2x + 6 = 0$ is negative, so there are no additional real roots.",
+    "finalAnswer": "a = -2, b = 2; x = 2"
+  },
+  {
+    "id": "2019_Q1",
+    "year": 2019,
+    "qNum": "Q1",
+    "topicId": 1,
+    "topicName": "公式主项变换",
+    "topicNameEn": "Change of Subject",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2019 DSE A1 Q1",
+    "titleZh": "公式主项变换",
+    "titleEn": "Change of Subject",
+    "questionZh": "化 $h$ 为公式 $9(h+6k) = 7h+8$ 的主项。",
+    "questionEn": "Make $h$ the subject of the formula $9(h+6k) = 7h+8$.",
+    "solutionZh": [
+      { "step": "$9h + 54k = 7h + 8$", "mark": "1M", "desc": "展开括号" },
+      { "step": "$2h = 8 - 54k$", "mark": "1M", "desc": "移项集中 $h$" },
+      { "step": "$h = 4 - 27k$", "mark": "1A", "desc": "两边同除以 2 得到结果" }
+    ],
+    "solutionEn": [
+      { "step": "$9h + 54k = 7h + 8$", "mark": "1M", "desc": "Expand LHS bracket" },
+      { "step": "$2h = 8 - 54k$", "mark": "1M", "desc": "Isolate $2h$" },
+      { "step": "$h = 4 - 27k$", "mark": "1A", "desc": "Divide by 2 to solve for $h$" }
+    ],
+    "pitfallsZh": "记得分子两项都要除以 2：$8/2 = 4, 54/2 = 27$。",
+    "pitfallsEn": "Make sure to divide both terms on RHS by 2.",
+    "finalAnswer": "h = 4 - 27k"
+  },
+  {
+    "id": "2018_Q1",
+    "year": 2018,
+    "qNum": "Q1",
+    "topicId": 1,
+    "topicName": "公式主项变换",
+    "topicNameEn": "Change of Subject",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2018 DSE A1 Q1",
+    "titleZh": "公式主项变换",
+    "titleEn": "Change of Subject",
+    "questionZh": "化 $b$ 为公式 $\\frac{a+4}{3} = \\frac{b+1}{2}$ 的主项。",
+    "questionEn": "Make $b$ the subject of the formula $\\frac{a+4}{3} = \\frac{b+1}{2}$.",
+    "solutionZh": [
+      { "step": "$2(a+4) = 3(b+1)$", "mark": "1M", "desc": "交叉相乘消去分母" },
+      { "step": "$2a + 8 = 3b + 3 \\implies 3b = 2a + 5$", "mark": "1M", "desc": "展开并移项" },
+      { "step": "$b = \\frac{2a+5}{3}$", "mark": "1A", "desc": "求得 $b$ 的主项表达式" }
+    ],
+    "solutionEn": [
+      { "step": "$2(a+4) = 3(b+1)$", "mark": "1M", "desc": "Cross multiply" },
+      { "step": "$2a + 8 = 3b + 3 \\implies 3b = 2a + 5$", "mark": "1M", "desc": "Expand and isolate $3b$" },
+      { "step": "$b = \\frac{2a+5}{3}$", "mark": "1A", "desc": "Express $b$ as subject" }
+    ],
+    "pitfallsZh": "展开 $3(b+1)$ 时得到 $3b+3$，不要漏乘常数项 1。",
+    "pitfallsEn": "Don't forget to multiply 3 to both terms inside $(b+1)$.",
+    "finalAnswer": "b = (2a + 5) / 3"
+  },
+  {
+    "id": "2017_Q1",
+    "year": 2017,
+    "qNum": "Q1",
+    "topicId": 1,
+    "topicName": "公式主项变换",
+    "topicNameEn": "Change of Subject",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2017 DSE A1 Q1",
+    "titleZh": "公式主项变换",
+    "titleEn": "Change of Subject",
+    "questionZh": "化 $y$ 为公式 $k = \\frac{3x-y}{y}$ 的主项。",
+    "questionEn": "Make $y$ the subject of the formula $k = \\frac{3x-y}{y}$.",
+    "solutionZh": [
+      { "step": "$ky = 3x - y$", "mark": "1M", "desc": "两边同乘以 $y$" },
+      { "step": "$ky + y = 3x$", "mark": "1M", "desc": "含 $y$ 的项移到同一侧" },
+      { "step": "$y(k+1) = 3x \\implies y = \\frac{3x}{k+1}$", "mark": "1A", "desc": "提取 $y$ 并求解" }
+    ],
+    "solutionEn": [
+      { "step": "$ky = 3x - y$", "mark": "1M", "desc": "Multiply both sides by $y$" },
+      { "step": "$ky + y = 3x$", "mark": "1M", "desc": "Group $y$ terms on LHS" },
+      { "step": "$y(k+1) = 3x \\implies y = \\frac{3x}{k+1}$", "mark": "1A", "desc": "Factor out $y$ and solve" }
+    ],
+    "pitfallsZh": "提取公因式时 $ky+y = y(k+1)$，不要漏掉 $+1$。",
+    "pitfallsEn": "Remember the $+1$ when factoring $ky+y$ into $y(k+1)$.",
+    "finalAnswer": "y = 3x / (k + 1)"
+  },
+  {
+    "id": "2016_Q1",
+    "year": 2016,
+    "qNum": "Q1",
+    "topicId": 2,
+    "topicName": "指数律",
+    "topicNameEn": "Laws of Indices",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2016 DSE A1 Q1",
+    "titleZh": "指数律化简",
+    "titleEn": "Laws of Indices",
+    "questionZh": "化简 $\\frac{(x^8 y^7)^2}{x^5 y^{-6}}$，并以正指数表示答案。",
+    "questionEn": "Simplify $\\frac{(x^8 y^7)^2}{x^5 y^{-6}}$ and express your answer with positive indices.",
+    "solutionZh": [
+      { "step": "分子 $= x^{16} y^{14}$", "mark": "1M", "desc": "展开分子次方" },
+      { "step": "原式 $= x^{16-5} y^{14-(-6)}$", "mark": "1M", "desc": "同底数指数相减" },
+      { "step": "$= x^{11} y^{20}$", "mark": "1A", "desc": "化简得最终结果" }
+    ],
+    "solutionEn": [
+      { "step": "Numerator $= x^{16} y^{14}$", "mark": "1M", "desc": "Expand power on top" },
+      { "step": "Expression $= x^{16-5} y^{14-(-6)}$", "mark": "1M", "desc": "Subtract indices" },
+      { "step": "$= x^{11} y^{20}$", "mark": "1A", "desc": "Final positive index result" }
+    ],
+    "pitfallsZh": "$14 - (-6) = 20$，减去负数相当于加上正数。",
+    "pitfallsEn": "$14 - (-6) = 20$, subtracting a negative is adding a positive.",
+    "finalAnswer": "x^11 * y^20"
+  },
+  {
+    "id": "2015_Q1",
+    "year": 2015,
+    "qNum": "Q1",
+    "topicId": 2,
+    "topicName": "指数律",
+    "topicNameEn": "Laws of Indices",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2015 DSE A1 Q1",
+    "titleZh": "指数律化简",
+    "titleEn": "Laws of Indices",
+    "questionZh": "化简 $\\frac{m^9}{(m^3 n^7)^5}$，并以正指数表示答案。",
+    "questionEn": "Simplify $\\frac{m^9}{(m^3 n^7)^5}$ and express your answer with positive indices.",
+    "solutionZh": [
+      { "step": "分母 $= m^{15} n^{35}$", "mark": "1M", "desc": "展开分母括号" },
+      { "step": "原式 $= m^{9-15} n^{-35} = m^{-6} n^{-35}$", "mark": "1M", "desc": "同底数指数相减" },
+      { "step": "$= \\frac{1}{m^6 n^{35}}$", "mark": "1A", "desc": "化为正指数表示" }
+    ],
+    "solutionEn": [
+      { "step": "Denominator $= m^{15} n^{35}$", "mark": "1M", "desc": "Expand denominator" },
+      { "step": "Expression $= m^{9-15} n^{-35} = m^{-6} n^{-35}$", "mark": "1M", "desc": "Subtract powers" },
+      { "step": "$= \\frac{1}{m^6 n^{35}}$", "mark": "1A", "desc": "Express in positive index form" }
+    ],
+    "pitfallsZh": "$m$ 的次方在分母 $15 > 9$，因此留在大分母下为 $m^6$。",
+    "pitfallsEn": "$m^{15}$ is larger in the denominator, leaving $m^6$ in the denominator.",
+    "finalAnswer": "1 / (m^6 * n^35)"
+  },
+  {
+    "id": "2014_Q1",
+    "year": 2014,
+    "qNum": "Q1",
+    "topicId": 2,
+    "topicName": "指数律",
+    "topicNameEn": "Laws of Indices",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2014 DSE A1 Q1",
+    "titleZh": "指数律化简",
+    "titleEn": "Laws of Indices",
+    "questionZh": "化简 $\\frac{(xy^{-2})^3}{y^4}$，并以正指数表示答案。",
+    "questionEn": "Simplify $\\frac{(xy^{-2})^3}{y^4}$ and express your answer with positive indices.",
+    "solutionZh": [
+      { "step": "分子 $= x^3 y^{-6}$", "mark": "1M", "desc": "展开分子次方" },
+      { "step": "原式 $= x^3 y^{-6-4} = x^3 y^{-10}$", "mark": "1M", "desc": "合并底数为 $y$ 的指数" },
+      { "step": "$= \\frac{x^3}{y^{10}}$", "mark": "1A", "desc": "转换为正指数形式" }
+    ],
+    "solutionEn": [
+      { "step": "Numerator $= x^3 y^{-6}$", "mark": "1M", "desc": "Expand numerator power" },
+      { "step": "Expression $= x^3 y^{-6-4} = x^3 y^{-10}$", "mark": "1M", "desc": "Subtract powers for base $y$" },
+      { "step": "$= \\frac{x^3}{y^{10}}$", "mark": "1A", "desc": "Express answer with positive indices" }
+    ],
+    "pitfallsZh": "注意指数相减为 $-6 - 4 = -10$，移至分母得 $y^{10}$。",
+    "pitfallsEn": "Exponent subtraction is $-6 - 4 = -10$, move to denominator as $y^{10}$.",
+    "finalAnswer": "x^3 / y^10"
   }
 ]
