@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HKDSE Math Question Bank Viewer</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- MathJax for LaTeX Rendering -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    mjx-container { outline: none !important; }
+    .mark-badge {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-indigo-700 text-white shadow-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap justify-between items-center gap-3">
+      <div class="flex items-center space-x-3">
+        <div class="bg-white/10 p-2 rounded-lg backdrop-blur-sm">
+          <i class="fa-solid font-bold text-xl fa-calculator text-amber-300"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-lg sm:text-xl tracking-tight">HKDSE Math (Core) 题库浏览器</h1>
+          <p class="text-xs text-indigo-200">Interactive Question Bank & Marking Scheme</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-3">
+        <!-- 中英双语切换 -->
+        <div class="bg-indigo-800/80 p-1 rounded-lg flex text-xs font-semibold">
+          <button id="btn-lang-zh" onclick="setLanguage('zh')" class="px-2.5 py-1 rounded bg-indigo-500 text-white transition-all">中文</button>
+          <button id="btn-lang-en" onclick="setLanguage('en')" class="px-2.5 py-1 rounded text-indigo-200 hover:text-white transition-all">English</button>
+        </div>
+
+        <!-- 贴入新 JSON 按钮 -->
+        <button onclick="toggleJsonModal()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium rounded-lg transition-all flex items-center gap-1.5 shadow-sm border border-indigo-400/30">
+          <i class="fa-solid fa-code"></i> <span id="lbl-json-btn">自订 JSON 数据</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- Filter Bar -->
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200/80 p-4 mb-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 items-center">
+        
+        <!-- 搜索框 -->
+        <div class="lg:col-span-4 relative">
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+          <input type="text" id="search-input" oninput="renderQuestions()" placeholder="搜索题目、课题、关键字..." class="w-full pl-9 pr-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all">
+        </div>
+
+        <!-- 课题下拉菜单 -->
+        <div class="lg:col-span-3">
+          <select id="topic-filter" onchange="renderQuestions()" class="w-full py-2 px-3 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all">
+            <option value="ALL">所有课题 (All Topics)</option>
+          </select>
+        </div>
+
+        <!-- 难度筛选 -->
+        <div class="lg:col-span-2">
+          <select id="diff-filter" onchange="renderQuestions()" class="w-full py-2 px-3 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all">
+            <option value="ALL">所有难度 (Difficulty)</option>
+            <option value="Easy">Easy (简单)</option>
+            <option value="Medium">Medium (中等)</option>
+            <option value="Hard">Hard (困难)</option>
+          </select>
+        </div>
+
+        <!-- 年份筛选 -->
+        <div class="lg:col-span-2">
+          <select id="year-filter" onchange="renderQuestions()" class="w-full py-2 px-3 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all">
+            <option value="ALL">所有年份 (All Years)</option>
+          </select>
+        </div>
+
+        <!-- 重置筛选 -->
+        <div class="lg:col-span-1 text-right">
+          <button onclick="resetFilters()" class="w-full py-2 px-2 bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-medium rounded-lg transition-all">
+            <i class="fa-solid fa-rotate"></i> 重置
+          </button>
+        </div>
+      </div>
+
+      <!-- 统计栏 -->
+      <div class="mt-3 pt-3 border-t border-slate-100 flex justify-between items-center text-xs text-slate-500">
+        <div>符合条件题目: <span id="stat-count" class="font-bold text-indigo-600">0</span> / <span id="stat-total">0</span></div>
+        <div>总分数: <span id="stat-marks" class="font-bold text-emerald-600">0</span> 分</div>
+      </div>
+    </div>
+
+    <!-- 题目列表视图 -->
+    <div id="questions-list" class="space-y-6 tex2jax_process"></div>
+
+  </main>
+
+  <!-- JSON 模态弹窗 -->
+  <div id="json-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[85vh] flex flex-col overflow-hidden">
+      <div class="p-4 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+        <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
+          <i class="fa-solid fa-code text-indigo-600"></i> 编辑/粘贴 JSON 题库数据
+        </h3>
+        <button onclick="toggleJsonModal()" class="text-slate-400 hover:text-slate-600 p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <div class="p-4 flex-1 overflow-y-auto">
+        <p class="text-xs text-slate-500 mb-2">在此处直接粘贴最新的 JSON 题目数组，页面将实时渲染：</p>
+        <textarea id="json-input" class="w-full h-80 font-mono text-xs p-3 bg-slate-900 text-slate-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-slate-700" spellcheck="false"></textarea>
+      </div>
+      <div class="p-4 border-t border-slate-200 bg-slate-50 flex justify-end gap-2">
+        <button onclick="toggleJsonModal()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-medium rounded-lg">取消</button>
+        <button onclick="applyCustomJson()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium rounded-lg shadow-sm">载入并更新题库</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 默认数据源（匹配你的 JSON 结构）
+    let defaultDataset = [
+      {
+        "id": "2012_Q1",
+        "year": 2012,
+        "qNum": "Q1",
+        "topicId": 1,
+        "topicName": "指数律 Indices Laws",
+        "topicNameEn": "Indices Laws",
+        "difficulty": "Easy",
+        "marks": 3,
+        "yearRef": "2012 DSE A1 Q1",
+        "titleZh": "指数律化简",
+        "titleEn": "Indices Simplification",
+        "questionZh": "化简 $\\frac{(a^2 b^{-3})^3}{a^{-4} b^2}$，并以正指数表示答案。",
+        "questionEn": "Simplify $\\frac{(a^2 b^{-3})^3}{a^{-4} b^2}$ and express your answer with positive indices.",
+        "solutionZh": [
+          { "step": "原式 = $\\frac{a^6 b^{-9}}{a^{-4} b^2}$", "mark": "1M", "desc": "展开分子括号" },
+          { "step": "= $a^{6 - (-4)} \\cdot b^{-9 - 2} = a^{10} b^{-11}$", "mark": "1M", "desc": "合并同底指数" },
+          { "step": "= $\\frac{a^{10}}{b^{11}}$", "mark": "1A", "desc": "化负指数为正指数" }
+        ],
+        "solutionEn": [
+          { "step": "Expression = $\\frac{a^6 b^{-9}}{a^{-4} b^2}$", "mark": "1M", "desc": "Expand numerator" },
+          { "step": "= $a^{10} b^{-11}$", "mark": "1M", "desc": "Combine powers" },
+          { "step": "= $\\frac{a^{10}}{b^{11}}$", "mark": "1A", "desc": "Express with positive index" }
+        ],
+        "pitfallsZh": "注意 $b^{-11}$ 必须写为分母的 $b^{11}$，不可漏掉正指数的要求。",
+        "pitfallsEn": "Ensure $b^{-11}$ is expressed in the denominator as $b^{11}$.",
+        "finalAnswer": "a^10 / b^11"
+      },
+      {
+        "id": "2013_Q2",
+        "year": 2013,
+        "qNum": "Q2",
+        "topicId": 2,
+        "topicName": "公式主理 Change of Subject",
+        "topicNameEn": "Change of Subject",
+        "difficulty": "Easy",
+        "marks": 3,
+        "yearRef": "2013 DSE A1 Q2",
+        "titleZh": "变换公式的主理",
+        "titleEn": "Change of Subject",
+        "questionZh": "令 $k$ 成为公式 $x = \\frac{3 + k}{2k - 1}$ 的主理。",
+        "questionEn": "Make $k$ the subject of the formula $x = \\frac{3 + k}{2k - 1}$.",
+        "solutionZh": [
+          { "step": "$x(2k - 1) = 3 + k$", "mark": "1M", "desc": "两边同乘以分母" },
+          { "step": "$2kx - x = 3 + k \\implies 2kx - k = 3 + x$", "mark": "1M", "desc": "展开并整理含 $k$ 项" },
+          { "step": "$k(2x - 1) = 3 + x \\implies k = \\frac{x + 3}{2x - 1}$", "mark": "1A", "desc": "提取公因式 $k$ 并解出" }
+        ],
+        "solutionEn": [
+          { "step": "$x(2k - 1) = 3 + k$", "mark": "1M", "desc": "Multiply both sides by denominator" },
+          { "step": "$2kx - x = 3 + k \\implies 2kx - k = 3 + x$", "mark": "1M", "desc": "Expand and group $k$ terms" },
+          { "step": "$k(2x - 1) = 3 + x \\implies k = \\frac{x + 3}{2x - 1}$", "mark": "1A", "desc": "Factor out $k$ and solve" }
+        ],
+        "pitfallsZh": "移项时注意负号，分母不可遗漏括号。",
+        "pitfallsEn": "Beware of sign errors when collecting terms.",
+        "finalAnswer": "k = (x + 3) / (2x - 1)"
+      }
+    ];
+
+    let currentQuestions = [...defaultDataset];
+    let currentLang = 'zh';
+
+    window.addEventListener('DOMContentLoaded', () => {
+      populateFilterOptions();
+      renderQuestions();
+      document.getElementById('json-input').value = JSON.stringify(defaultDataset, null, 2);
+    });
+
+    function populateFilterOptions() {
+      const topicSelect = document.getElementById('topic-filter');
+      const yearSelect = document.getElementById('year-filter');
+      const topicMap = new Map();
+      const yearsSet = new Set();
+
+      currentQuestions.forEach(q => {
+        topicMap.set(q.topicId, { nameZh: q.topicName, nameEn: q.topicNameEn });
+        yearsSet.add(q.year);
+      });
+
+      topicSelect.innerHTML = `<option value="ALL">${currentLang === 'zh' ? '所有课题 (All Topics)' : 'All Topics'}</option>`;
+      Array.from(topicMap.keys()).sort((a,b) => a - b).forEach(topicId => {
+        const top = topicMap.get(topicId);
+        const name = currentLang === 'zh' ? top.nameZh : top.nameEn;
+        topicSelect.innerHTML += `<option value="${topicId}">Topic ${topicId}: ${name}</option>`;
+      });
+
+      yearSelect.innerHTML = `<option value="ALL">${currentLang === 'zh' ? '所有年份 (All Years)' : 'All Years'}</option>`;
+      Array.from(yearsSet).sort((a,b) => b - a).forEach(year => {
+        yearSelect.innerHTML += `<option value="${year}">${year} DSE</option>`;
+      });
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.getElementById('btn-lang-zh').className = lang === 'zh' 
+        ? 'px-2.5 py-1 rounded bg-indigo-500 text-white transition-all' 
+        : 'px-2.5 py-1 rounded text-indigo-200 hover:text-white transition-all';
+      document.getElementById('btn-lang-en').className = lang === 'en' 
+        ? 'px-2.5 py-1 rounded bg-indigo-500 text-white transition-all' 
+        : 'px-2.5 py-1 rounded text-indigo-200 hover:text-white transition-all';
+      
+      document.getElementById('lbl-json-btn').innerText = lang === 'zh' ? '自订 JSON 数据' : 'Custom JSON';
+      populateFilterOptions();
+      renderQuestions();
+    }
+
+    function renderQuestions() {
+      const container = document.getElementById('questions-list');
+      const searchKey = document.getElementById('search-input').value.toLowerCase().trim();
+      const selectedTopic = document.getElementById('topic-filter').value;
+      const selectedDiff = document.getElementById('diff-filter').value;
+      const selectedYear = document.getElementById('year-filter').value;
+
+      let filtered = currentQuestions.filter(q => {
+        if (selectedTopic !== 'ALL' && q.topicId.toString() !== selectedTopic) return false;
+        if (selectedDiff !== 'ALL' && q.difficulty !== selectedDiff) return false;
+        if (selectedYear !== 'ALL' && q.year.toString() !== selectedYear) return false;
+
+        if (searchKey) {
+          const title = (q.titleZh + ' ' + q.titleEn).toLowerCase();
+          const topic = (q.topicName + ' ' + q.topicNameEn).toLowerCase();
+          const questionText = (q.questionZh + ' ' + q.questionEn).toLowerCase();
+          const qId = q.id.toLowerCase();
+          if (!title.includes(searchKey) && !topic.includes(searchKey) && !questionText.includes(searchKey) && !qId.includes(searchKey)) {
+            return false;
+          }
+        }
+        return true;
+      });
+
+      document.getElementById('stat-count').innerText = filtered.length;
+      document.getElementById('stat-total').innerText = currentQuestions.length;
+      document.getElementById('stat-marks').innerText = filtered.reduce((sum, q) => sum + (q.marks || 0), 0);
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white rounded-xl p-12 text-center border border-slate-200">
+            <i class="fa-solid fa-folder-open text-3xl text-slate-300 mb-2"></i>
+            <p class="text-slate-500 font-medium text-sm">找不到符合条件的题目</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map((q, idx) => {
+        const title = currentLang === 'zh' ? q.titleZh : q.titleEn;
+        const topicName = currentLang === 'zh' ? q.topicName : q.topicNameEn;
+        const questionText = currentLang === 'zh' ? q.questionZh : q.questionEn;
+        const solution = currentLang === 'zh' ? q.solutionZh : q.solutionEn;
+        const pitfalls = currentLang === 'zh' ? q.pitfallsZh : q.pitfallsEn;
+
+        let diffColor = 'bg-emerald-100 text-emerald-800 border-emerald-200';
+        if (q.difficulty === 'Medium') diffColor = 'bg-amber-100 text-amber-800 border-amber-200';
+        if (q.difficulty === 'Hard') diffColor = 'bg-rose-100 text-rose-800 border-rose-200';
+
+        return `
+          <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden transition-all hover:shadow-md">
+            
+            <!-- Card Header -->
+            <div class="bg-slate-50 border-b border-slate-200/80 px-5 py-3 flex flex-wrap justify-between items-center gap-2">
+              <div class="flex items-center space-x-2">
+                <span class="font-mono text-xs font-bold px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 border border-indigo-200">${q.yearRef}</span>
+                <span class="text-xs px-2 py-0.5 rounded font-medium border ${diffColor}">${q.difficulty}</span>
+                <span class="text-xs px-2 py-0.5 rounded bg-slate-200 text-slate-700 font-medium"><i class="fa-regular fa-bookmark"></i> ${topicName}</span>
+              </div>
+              <div class="text-xs font-bold text-slate-500">
+                <span class="bg-amber-50 text-amber-700 px-2 py-0.5 rounded border border-amber-200"><i class="fa-solid fa-star text-amber-500"></i> ${q.marks} 分 (Marks)</span>
+              </div>
+            </div>
+
+            <!-- Card Body -->
+            <div class="p-5">
+              <h3 class="font-bold text-slate-800 text-base mb-2 flex items-center gap-2">
+                <span class="text-indigo-600 font-mono">#${idx + 1}</span> ${title}
+              </h3>
+              <div class="text-slate-700 text-sm sm:text-base leading-relaxed bg-slate-50/60 p-4 rounded-lg border border-slate-100">
+                ${questionText.replace(/\\n/g, '<br>')}
+              </div>
+
+              <!-- Buttons -->
+              <div class="mt-4 pt-3 flex flex-wrap gap-2 justify-between items-center border-t border-slate-100">
+                <button onclick="toggleSection('sol-${q.id}')" class="px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5">
+                  <i class="fa-solid fa-list-check"></i> <span>${currentLang === 'zh' ? '查看分步解答与评分标准' : 'Show Marking Scheme'}</span>
+                </button>
+
+                <button onclick="toggleSection('ans-${q.id}')" class="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5">
+                  <i class="fa-solid fa-key"></i> <span>${currentLang === 'zh' ? '查看最终答案' : 'Show Final Answer'}</span>
+                </button>
+              </div>
+
+              <!-- Final Answer -->
+              <div id="ans-${q.id}" class="hidden mt-3 p-3 bg-emerald-50/80 border border-emerald-200 rounded-lg text-emerald-900 text-xs sm:text-sm font-mono flex items-center gap-2">
+                <i class="fa-solid fa-circle-check text-emerald-600"></i>
+                <div><strong class="font-sans">${currentLang === 'zh' ? '最终答案' : 'Final Answer'}:</strong> ${q.finalAnswer}</div>
+              </div>
+
+              <!-- Solution Scheme -->
+              <div id="sol-${q.id}" class="hidden mt-4 bg-slate-900 text-slate-100 rounded-xl p-4 shadow-inner space-y-3">
+                <div class="text-xs font-bold uppercase tracking-wider text-indigo-400 border-b border-slate-800 pb-2 flex items-center gap-2">
+                  <i class="fa-solid fa-graduation-cap"></i> ${currentLang === 'zh' ? '详细解题步骤 (Marking Scheme)' : 'Marking Scheme'}
+                </div>
+
+                <div class="space-y-2">
+                  ${solution.map(s => {
+                    let markBg = 'bg-indigo-900/80 text-indigo-300 border-indigo-700';
+                    if (s.mark.includes('M')) markBg = 'bg-amber-900/80 text-amber-300 border-amber-700';
+                    if (s.mark.includes('A')) markBg = 'bg-emerald-900/80 text-emerald-300 border-emerald-700';
+
+                    return `
+                      <div class="flex items-start justify-between gap-3 bg-slate-800/80 p-3 rounded-lg border border-slate-700/60 text-xs sm:text-sm">
+                        <div class="flex-1 space-y-1">
+                          <div class="font-mono text-slate-200 leading-normal">${s.step}</div>
+                          <div class="text-xs text-slate-400"><i class="fa-regular fa-lightbulb text-amber-400"></i> ${s.desc}</div>
+                        </div>
+                        <span class="mark-badge text-xs font-bold px-2 py-1 rounded border ${markBg} shrink-0">${s.mark}</span>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+
+                ${pitfalls ? `
+                  <div class="mt-3 p-3 bg-rose-950/40 border border-rose-800/60 rounded-lg text-xs text-rose-200 flex items-start gap-2">
+                    <i class="fa-solid fa-triangle-exclamation text-rose-400 text-sm mt-0.5 shrink-0"></i>
+                    <div>
+                      <strong class="font-bold">${currentLang === 'zh' ? '考生易错点警示' : 'Pitfalls & Tips'}:</strong>
+                      <p class="mt-0.5 text-rose-300/90">${pitfalls}</p>
+                    </div>
+                  </div>
+                ` : ''}
+              </div>
+
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise([container]).catch(err => console.log(err));
+      }
+    }
+
+    function toggleSection(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.classList.toggle('hidden');
+        if (!el.classList.contains('hidden') && window.MathJax && window.MathJax.typesetPromise) {
+          window.MathJax.typesetPromise([el]).catch(err => console.log(err));
+        }
+      }
+    }
+
+    function resetFilters() {
+      document.getElementById('search-input').value = '';
+      document.getElementById('topic-filter').value = 'ALL';
+      document.getElementById('diff-filter').value = 'ALL';
+      document.getElementById('year-filter').value = 'ALL';
+      renderQuestions();
+    }
+
+    function toggleJsonModal() {
+      document.getElementById('json-modal').classList.toggle('hidden');
+    }
+
+    function applyCustomJson() {
+      const rawText = document.getElementById('json-input').value;
+      try {
+        const parsed = JSON.parse(rawText);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          currentQuestions = parsed;
+          populateFilterOptions();
+          renderQuestions();
+          toggleJsonModal();
+        } else {
+          alert('请输入正确的 JSON 数组！');
+        }
+      } catch (err) {
+        alert('JSON 语法错误：' + err.message);
+      }
+    }
+  </script>
+</body>
+</html>
