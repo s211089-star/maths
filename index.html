@@ -45,17 +45,11 @@
         </div>
         <div>
           <h1 class="font-bold text-lg sm:text-xl tracking-tight">HKDSE Math (Core) 题库浏览器</h1>
-          <p class="text-xs text-indigo-200">Interactive Question Bank & Marking Scheme</p>
+          <p class="text-xs text-indigo-200">Interactive Question Bank & Marking Scheme (2014–2023)</p>
         </div>
       </div>
 
       <div class="flex items-center space-x-3">
-        <!-- 自动同步指示灯 -->
-        <div id="sync-status" class="text-xs bg-indigo-800/80 text-indigo-200 px-2.5 py-1 rounded-lg flex items-center gap-1.5 border border-indigo-400/30">
-          <i class="fa-solid fa-spinner fa-spin text-amber-300" id="sync-icon"></i>
-          <span id="sync-text">读取 .md 题库中...</span>
-        </div>
-
         <!-- 中英双语切换 -->
         <div class="bg-indigo-800/80 p-1 rounded-lg flex text-xs font-semibold">
           <button id="btn-lang-zh" onclick="setLanguage('zh')" class="px-2.5 py-1 rounded bg-indigo-500 text-white transition-all">中文</button>
@@ -148,53 +142,694 @@
   </div>
 
   <script>
-    // 默认备用数据源
-    let defaultDataset = [];
-    let currentQuestions = [];
+    // 默认内置数据源（包含 2014-2023 DSE 核心真题）
+    let defaultDataset = [
+  {
+    "id": "2023_Q1",
+    "year": 2023,
+    "qNum": "Q1",
+    "topicId": 1,
+    "topicName": "公式主项变换 Change of Subject",
+    "topicNameEn": "Change of Subject",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2023 DSE A1 Q1",
+    "titleZh": "2023 DSE 卷一 第1题：公式主项变换",
+    "titleEn": "2023 DSE Paper 1 Q1: Change of Subject",
+    "questionZh": "化 $h$ 为公式 $\\frac{5}{h+k} = \\frac{k}{h-3}$ 的主项。",
+    "questionEn": "Make $h$ the subject of the formula $\\frac{5}{h+k} = \\frac{k}{h-3}$.",
+    "solutionZh": [
+      {
+        "step": "$5(h-3) = k(h+k)$",
+        "mark": "1M",
+        "desc": "交叉相乘，展开括号"
+      },
+      {
+        "step": "$5h - 15 = kh + k^2 \\implies 5h - kh = k^2 + 15$",
+        "mark": "1M",
+        "desc": "将含 $h$ 的项移至等式左边"
+      },
+      {
+        "step": "$h(5-k) = k^2 + 15 \\implies h = \\frac{k^2+15}{5-k}$",
+        "mark": "1A",
+        "desc": "提取公因式 $h$ 并求出结果"
+      }
+    ],
+    "solutionEn": [
+      {
+        "step": "$5(h-3) = k(h+k)$",
+        "mark": "1M",
+        "desc": "Cross multiply to remove denominators"
+      },
+      {
+        "step": "$5h - 15 = kh + k^2 \\implies 5h - kh = k^2 + 15$",
+        "mark": "1M",
+        "desc": "Rearrange terms containing $h$ to one side"
+      },
+      {
+        "step": "$h(5-k) = k^2 + 15 \\implies h = \\frac{k^2+15}{5-k}$",
+        "mark": "1A",
+        "desc": "Factorize $h$ and get the final answer"
+      }
+    ],
+    "pitfallsZh": "注意符号转换，移项时 $-15$ 变成 $+15$；确保分母不为零。",
+    "pitfallsEn": "Watch out for negative signs when moving terms across the equals sign.",
+    "finalAnswer": "h = (k^2 + 15) / (5 - k)"
+  },
+  {
+    "id": "2023_Q2",
+    "year": 2023,
+    "qNum": "Q2",
+    "topicId": 2,
+    "topicName": "指数律 Indices Laws",
+    "topicNameEn": "Indices Laws",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2023 DSE A1 Q2",
+    "titleZh": "2023 DSE 卷一 第2题：指数化简",
+    "titleEn": "2023 DSE Paper 1 Q2: Simplify Exponential Expression",
+    "questionZh": "化简 $\\frac{x^{-8}y}{(x^7 y^9)^{-6}}$，并以正指数表示答案。",
+    "questionEn": "Simplify $\\frac{x^{-8}y}{(x^7 y^9)^{-6}}$ and express your answer with positive indices.",
+    "solutionZh": [
+      {
+        "step": "$(x^7 y^9)^{-6} = x^{-42} y^{-54}$",
+        "mark": "1M",
+        "desc": "使用指数律展开分母的括号"
+      },
+      {
+        "step": "$\\frac{x^{-8}y}{x^{-42}y^{-54}} = x^{-8 - (-42)} y^{1 - (-54)}$",
+        "mark": "1M",
+        "desc": "同底数相除，指数相减"
+      },
+      {
+        "step": "$= x^{34} y^{55}$",
+        "mark": "1A",
+        "desc": "计算最终正指数结果"
+      }
+    ],
+    "solutionEn": [
+      {
+        "step": "$(x^7 y^9)^{-6} = x^{-42} y^{-54}$",
+        "mark": "1M",
+        "desc": "Apply index law to denominator"
+      },
+      {
+        "step": "$\\frac{x^{-8}y}{x^{-42}y^{-54}} = x^{-8 - (-42)} y^{1 - (-54)}$",
+        "mark": "1M",
+        "desc": "Subtract indices for same bases"
+      },
+      {
+        "step": "$= x^{34} y^{55}$",
+        "mark": "1A",
+        "desc": "Simplify to positive indices"
+      }
+    ],
+    "pitfallsZh": "注意负负得正：$-8 - (-42) = 34$。",
+    "pitfallsEn": "Be careful with double negatives like $-8 - (-42) = 34$.",
+    "finalAnswer": "x^{34} y^{55}"
+  },
+  {
+    "id": "2023_Q3",
+    "year": 2023,
+    "qNum": "Q3",
+    "topicId": 3,
+    "topicName": "因式分解 Factorization",
+    "topicNameEn": "Factorization",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2023 DSE A1 Q3",
+    "titleZh": "2023 DSE 卷一 第3题：因式分解",
+    "titleEn": "2023 DSE Paper 1 Q3: Factorization",
+    "questionZh": "(a) 因式分解 $x^2 - 6xy + 9y^2$。\\n(b) 因式分解 $x^2 - 6xy + 9y^2 - 4x + 12y$。",
+    "questionEn": "(a) Factorize $x^2 - 6xy + 9y^2$.\\n(b) Factorize $x^2 - 6xy + 9y^2 - 4x + 12y$.",
+    "solutionZh": [
+      {
+        "step": "(a) $x^2 - 6xy + 9y^2 = (x - 3y)^2$",
+        "mark": "1M",
+        "desc": "完全平方公式"
+      },
+      {
+        "step": "(b) 原式 $= (x - 3y)^2 - 4(x - 3y)$",
+        "mark": "1M",
+        "desc": "代入 (a) 的结果并提取 $-4$"
+      },
+      {
+        "step": "$= (x - 3y)(x - 3y - 4)$",
+        "mark": "1A",
+        "desc": "提取公因式 $(x - 3y)$"
+      }
+    ],
+    "solutionEn": [
+      {
+        "step": "(a) $x^2 - 6xy + 9y^2 = (x - 3y)^2$",
+        "mark": "1M",
+        "desc": "Perfect square formula"
+      },
+      {
+        "step": "(b) Expression $= (x - 3y)^2 - 4(x - 3y)$",
+        "mark": "1M",
+        "desc": "Substitute (a) and factor out $-4$"
+      },
+      {
+        "step": "$= (x - 3y)(x - 3y - 4)$",
+        "mark": "1A",
+        "desc": "Factor out common factor $(x - 3y)$"
+      }
+    ],
+    "pitfallsZh": "(b) 部分要灵活利用 (a) 的结果，$-4x+12y = -4(x-3y)$ 注意提取负号时括号内变号。",
+    "pitfallsEn": "Notice sign change when factoring out $-4$ from $-4x+12y$.",
+    "finalAnswer": "(a) (x - 3y)^2  |  (b) (x - 3y)(x - 3y - 4)"
+  },
+  {
+    "id": "2022_Q1",
+    "year": 2022,
+    "qNum": "Q1",
+    "topicId": 2,
+    "topicName": "指数律 Indices Laws",
+    "topicNameEn": "Indices Laws",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2022 DSE A1 Q1",
+    "titleZh": "2022 DSE 卷一 第1题：指数化简",
+    "titleEn": "2022 DSE Paper 1 Q1: Simplify Exponential Expression",
+    "questionZh": "化简 $\\frac{(a^3 b^{-2})^4}{a^{-5} b^6}$，并以正指数表示答案。",
+    "questionEn": "Simplify $\\frac{(a^3 b^{-2})^4}{a^{-5} b^6}$ and express your answer with positive indices.",
+    "solutionZh": [
+      {
+        "step": "$(a^3 b^{-2})^4 = a^{12} b^{-8}$",
+        "mark": "1M",
+        "desc": "展开分子括号"
+      },
+      {
+        "step": "$\\frac{a^{12}b^{-8}}{a^{-5}b^6} = a^{12 - (-5)} b^{-8 - 6} = a^{17}b^{-14}$",
+        "mark": "1M",
+        "desc": "同底数指数相减"
+      },
+      {
+        "step": "$= \\frac{a^{17}}{b^{14}}$",
+        "mark": "1A",
+        "desc": "转换为正指数形式"
+      }
+    ],
+    "solutionEn": [
+      {
+        "step": "$(a^3 b^{-2})^4 = a^{12} b^{-8}$",
+        "mark": "1M",
+        "desc": "Expand numerator using index laws"
+      },
+      {
+        "step": "$\\frac{a^{12}b^{-8}}{a^{-5}b^6} = a^{12 - (-5)} b^{-8 - 6} = a^{17}b^{-14}$",
+        "mark": "1M",
+        "desc": "Subtract powers for division"
+      },
+      {
+        "step": "$= \\frac{a^{17}}{b^{14}}$",
+        "mark": "1A",
+        "desc": "Express answer with positive indices"
+      }
+    ],
+    "pitfallsZh": "题目要求“以正指数表示”，答案不能留有 $b^{-14}$，必须写成 $\\frac{a^{17}}{b^{14}}$。",
+    "pitfallsEn": "Must write in positive indices format; do not leave negative powers.",
+    "finalAnswer": "a^{17} / b^{14}"
+  },
+  {
+    "id": "2022_Q3",
+    "year": 2022,
+    "qNum": "Q3",
+    "topicId": 3,
+    "topicName": "因式分解 Factorization",
+    "topicNameEn": "Factorization",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2022 DSE A1 Q3",
+    "titleZh": "2022 DSE 卷一 第3题：因式分解",
+    "titleEn": "2022 DSE Paper 1 Q3: Factorization",
+    "questionZh": "(a) 因式分解 $4x^2 - 9y^2$。\\n(b) 因式分解 $4x^2 - 9y^2 + 12x - 18y$。",
+    "questionEn": "(a) Factorize $4x^2 - 9y^2$.\\n(b) Factorize $4x^2 - 9y^2 + 12x - 18y$.",
+    "solutionZh": [
+      {
+        "step": "(a) $4x^2 - 9y^2 = (2x - 3y)(2x + 3y)$",
+        "mark": "1M",
+        "desc": "平方差公式"
+      },
+      {
+        "step": "(b) 原式 $= (2x - 3y)(2x + 3y) + 6(2x - 3y)$",
+        "mark": "1M",
+        "desc": "代入 (a) 结果并提取公因式 $6$"
+      },
+      {
+        "step": "$= (2x - 3y)(2x + 3y + 6)$",
+        "mark": "1A",
+        "desc": "提取公因式 $(2x - 3y)$"
+      }
+    ],
+    "solutionEn": [
+      {
+        "step": "(a) $4x^2 - 9y^2 = (2x - 3y)(2x + 3y)$",
+        "mark": "1M",
+        "desc": "Difference of two squares"
+      },
+      {
+        "step": "(b) Expression $= (2x - 3y)(2x + 3y) + 6(2x - 3y)$",
+        "mark": "1M",
+        "desc": "Substitute result from (a)"
+      },
+      {
+        "step": "$= (2x - 3y)(2x + 3y + 6)$",
+        "mark": "1A",
+        "desc": "Factor out $(2x - 3y)$"
+      }
+    ],
+    "pitfallsZh": "(a) 中注意 $4x^2=(2x)^2$ 和 $9y^2=(3y)^2$。",
+    "pitfallsEn": "Identify $4x^2$ as $(2x)^2$ and $9y^2$ as $(3y)^2$.",
+    "finalAnswer": "(a) (2x - 3y)(2x + 3y)  |  (b) (2x - 3y)(2x + 3y + 6)"
+  },
+  {
+    "id": "2021_Q1",
+    "year": 2021,
+    "qNum": "Q1",
+    "topicId": 2,
+    "topicName": "指数律 Indices Laws",
+    "topicNameEn": "Indices Laws",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2021 DSE A1 Q1",
+    "titleZh": "2021 DSE 卷一 第1题：指数化简",
+    "titleEn": "2021 DSE Paper 1 Q1: Simplify Exponential Expression",
+    "questionZh": "化简 $(a b^3)(a^{-2} b^4)^5$，并以正指数表示答案。",
+    "questionEn": "Simplify $(a b^3)(a^{-2} b^4)^5$ and express your answer with positive indices.",
+    "solutionZh": [
+      {
+        "step": "$(a^{-2} b^4)^5 = a^{-10} b^{20}$",
+        "mark": "1M",
+        "desc": "展开后半部分的括号"
+      },
+      {
+        "step": "$(a b^3)(a^{-10} b^{20}) = a^{1 + (-10)} b^{3 + 20} = a^{-9} b^{23}$",
+        "mark": "1M",
+        "desc": "同底数相乘，指数相加"
+      },
+      {
+        "step": "$= \\frac{b^{23}}{a^9}$",
+        "mark": "1A",
+        "desc": "写成正指数分式"
+      }
+    ],
+    "solutionEn": [
+      {
+        "step": "$(a^{-2} b^4)^5 = a^{-10} b^{20}$",
+        "mark": "1M",
+        "desc": "Expand bracket power"
+      },
+      {
+        "step": "$(a b^3)(a^{-10} b^{20}) = a^{1 + (-10)} b^{3 + 20} = a^{-9} b^{23}$",
+        "mark": "1M",
+        "desc": "Add indices for multiplication"
+      },
+      {
+        "step": "$= \\frac{b^{23}}{a^9}$",
+        "mark": "1A",
+        "desc": "Express answer with positive indices"
+      }
+    ],
+    "pitfallsZh": "注意第一个 $a$ 的指数是 $1$ 而不是 $0$。",
+    "pitfallsEn": "The index of the first $a$ is $1$, not $0$.",
+    "finalAnswer": "b^{23} / a^9"
+  },
+  {
+    "id": "2020_Q1",
+    "year": 2020,
+    "qNum": "Q1",
+    "topicId": 2,
+    "topicName": "指数律 Indices Laws",
+    "topicNameEn": "Indices Laws",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2020 DSE A1 Q1",
+    "titleZh": "2020 DSE 卷一 第1题：指数化简",
+    "titleEn": "2020 DSE Paper 1 Q1: Simplify Exponential Expression",
+    "questionZh": "化简 $\\frac{(mn^{-2})^5}{m^{-4}}$，并以正指数表示答案。",
+    "questionEn": "Simplify $\\frac{(mn^{-2})^5}{m^{-4}}$ and express your answer with positive indices.",
+    "solutionZh": [
+      {
+        "step": "$(mn^{-2})^5 = m^5 n^{-10}$",
+        "mark": "1M",
+        "desc": "展开分子括号"
+      },
+      {
+        "step": "$\\frac{m^5 n^{-10}}{m^{-4}} = m^{5 - (-4)} n^{-10} = m^9 n^{-10}$",
+        "mark": "1M",
+        "desc": "同底数指数相减"
+      },
+      {
+        "step": "$= \\frac{m^9}{n^{10}}$",
+        "mark": "1A",
+        "desc": "转换为正指数形式"
+      }
+    ],
+    "solutionEn": [
+      {
+        "step": "$(mn^{-2})^5 = m^5 n^{-10}$",
+        "mark": "1M",
+        "desc": "Expand numerator power"
+      },
+      {
+        "step": "$\\frac{m^5 n^{-10}}{m^{-4}} = m^{5 - (-4)} n^{-10} = m^9 n^{-10}$",
+        "mark": "1M",
+        "desc": "Subtract indices for base $m$"
+      },
+      {
+        "step": "$= \\frac{m^9}{n^{10}}$",
+        "mark": "1A",
+        "desc": "Express answer with positive indices"
+      }
+    ],
+    "pitfallsZh": "分母的负指数移至分子要改变符号。",
+    "pitfallsEn": "Take care when subtracting negative exponents in denominator.",
+    "finalAnswer": "m^9 / n^{10}"
+  },
+  {
+    "id": "2019_Q1",
+    "year": 2019,
+    "qNum": "Q1",
+    "topicId": 1,
+    "topicName": "公式主项变换 Change of Subject",
+    "topicNameEn": "Change of Subject",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2019 DSE A1 Q1",
+    "titleZh": "2019 DSE 卷一 第1题：公式主项变换",
+    "titleEn": "2019 DSE Paper 1 Q1: Change of Subject",
+    "questionZh": "化 $h$ 为公式 $9(h+6k) = 7h+8$ 的主项。",
+    "questionEn": "Make $h$ the subject of the formula $9(h+6k) = 7h+8$.",
+    "solutionZh": [
+      {
+        "step": "$9h + 54k = 7h + 8$",
+        "mark": "1M",
+        "desc": "展开左侧括号"
+      },
+      {
+        "step": "$9h - 7h = 8 - 54k \\implies 2h = 8 - 54k$",
+        "mark": "1M",
+        "desc": "移项将含 $h$ 的项集中在左边"
+      },
+      {
+        "step": "$h = \\frac{8 - 54k}{2} = 4 - 27k$",
+        "mark": "1A",
+        "desc": "两边同除以 2 化简"
+      }
+    ],
+    "solutionEn": [
+      {
+        "step": "$9h + 54k = 7h + 8$",
+        "mark": "1M",
+        "desc": "Expand brackets on LHS"
+      },
+      {
+        "step": "$9h - 7h = 8 - 54k \\implies 2h = 8 - 54k$",
+        "mark": "1M",
+        "desc": "Group $h$ terms on LHS"
+      },
+      {
+        "step": "$h = \\frac{8 - 54k}{2} = 4 - 27k$",
+        "mark": "1A",
+        "desc": "Divide by 2 to solve for $h$"
+      }
+    ],
+    "pitfallsZh": "化简时切记各项都要除以 2：$8/2=4$，$54k/2=27k$。",
+    "pitfallsEn": "Ensure all numerical terms are divided by 2.",
+    "finalAnswer": "h = 4 - 27k"
+  },
+  {
+    "id": "2018_Q1",
+    "year": 2018,
+    "qNum": "Q1",
+    "topicId": 1,
+    "topicName": "公式主项变换 Change of Subject",
+    "topicNameEn": "Change of Subject",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2018 DSE A1 Q1",
+    "titleZh": "2018 DSE 卷一 第1题：公式主项变换",
+    "titleEn": "2018 DSE Paper 1 Q1: Change of Subject",
+    "questionZh": "化 $b$ 为公式 $\\frac{a+4}{3} = \\frac{b+1}{2}$ 的主项。",
+    "questionEn": "Make $b$ the subject of the formula $\\frac{a+4}{3} = \\frac{b+1}{2}$.",
+    "solutionZh": [
+      {
+        "step": "$2(a+4) = 3(b+1)$",
+        "mark": "1M",
+        "desc": "交叉相乘消去分母"
+      },
+      {
+        "step": "$2a + 8 = 3b + 3 \\implies 3b = 2a + 8 - 3 = 2a + 5$",
+        "mark": "1M",
+        "desc": "展开并移项"
+      },
+      {
+        "step": "$b = \\frac{2a+5}{3}$",
+        "mark": "1A",
+        "desc": "求得 $b$ 的主项表达式"
+      }
+    ],
+    "solutionEn": [
+      {
+        "step": "$2(a+4) = 3(b+1)$",
+        "mark": "1M",
+        "desc": "Cross multiply"
+      },
+      {
+        "step": "$2a + 8 = 3b + 3 \\implies 3b = 2a + 8 - 3 = 2a + 5$",
+        "mark": "1M",
+        "desc": "Expand and isolate $3b$"
+      },
+      {
+        "step": "$b = \\frac{2a+5}{3}$",
+        "mark": "1A",
+        "desc": "Express $b$ as the subject"
+      }
+    ],
+    "pitfallsZh": "注意展开 $3(b+1)$ 时得到 $3b+3$，不要漏乘常数项。",
+    "pitfallsEn": "Remember to multiply 3 to both terms inside $(b+1)$.",
+    "finalAnswer": "b = (2a + 5) / 3"
+  },
+  {
+    "id": "2017_Q1",
+    "year": 2017,
+    "qNum": "Q1",
+    "topicId": 1,
+    "topicName": "公式主项变换 Change of Subject",
+    "topicNameEn": "Change of Subject",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2017 DSE A1 Q1",
+    "titleZh": "2017 DSE 卷一 第1题：公式主项变换",
+    "titleEn": "2017 DSE Paper 1 Q1: Change of Subject",
+    "questionZh": "化 $y$ 为公式 $k = \\frac{3x-y}{y}$ 的主项。",
+    "questionEn": "Make $y$ the subject of the formula $k = \\frac{3x-y}{y}$.",
+    "solutionZh": [
+      {
+        "step": "$ky = 3x - y$",
+        "mark": "1M",
+        "desc": "两边同乘以 $y$ 消去分母"
+      },
+      {
+        "step": "$ky + y = 3x$",
+        "mark": "1M",
+        "desc": "将含 $y$ 的项移到左侧"
+      },
+      {
+        "step": "$y(k+1) = 3x \\implies y = \\frac{3x}{k+1}$",
+        "mark": "1A",
+        "desc": "提取公因式 $y$ 并求解"
+      }
+    ],
+    "solutionEn": [
+      {
+        "step": "$ky = 3x - y$",
+        "mark": "1M",
+        "desc": "Multiply both sides by $y$"
+      },
+      {
+        "step": "$ky + y = 3x$",
+        "mark": "1M",
+        "desc": "Move terms with $y$ to LHS"
+      },
+      {
+        "step": "$y(k+1) = 3x \\implies y = \\frac{3x}{k+1}$",
+        "mark": "1A",
+        "desc": "Factor out $y$ and express as subject"
+      }
+    ],
+    "pitfallsZh": "提取 $y$ 后，括号内应为 $(k+1)$，注意 $+1$ 容易遗漏。",
+    "pitfallsEn": "Don't forget the $+1$ when factoring $ky+y$ into $y(k+1)$.",
+    "finalAnswer": "y = (3x) / (k + 1)"
+  },
+  {
+    "id": "2016_Q1",
+    "year": 2016,
+    "qNum": "Q1",
+    "topicId": 2,
+    "topicName": "指数律 Indices Laws",
+    "topicNameEn": "Indices Laws",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2016 DSE A1 Q1",
+    "titleZh": "2016 DSE 卷一 第1题：指数化简",
+    "titleEn": "2016 DSE Paper 1 Q1: Simplify Exponential Expression",
+    "questionZh": "化简 $\\frac{(x^8 y^7)^2}{x^5 y^{-6}}$，并以正指数表示答案。",
+    "questionEn": "Simplify $\\frac{(x^8 y^7)^2}{x^5 y^{-6}}$ and express your answer with positive indices.",
+    "solutionZh": [
+      {
+        "step": "$(x^8 y^7)^2 = x^{16} y^{14}$",
+        "mark": "1M",
+        "desc": "展开分子次方"
+      },
+      {
+        "step": "$\\frac{x^{16} y^{14}}{x^5 y^{-6}} = x^{16-5} y^{14-(-6)}$",
+        "mark": "1M",
+        "desc": "同底数指数相减"
+      },
+      {
+        "step": "$= x^{11} y^{20}$",
+        "mark": "1A",
+        "desc": "得到最终结果"
+      }
+    ],
+    "solutionEn": [
+      {
+        "step": "$(x^8 y^7)^2 = x^{16} y^{14}$",
+        "mark": "1M",
+        "desc": "Expand bracket in numerator"
+      },
+      {
+        "step": "$\\frac{x^{16} y^{14}}{x^5 y^{-6}} = x^{16-5} y^{14-(-6)}$",
+        "mark": "1M",
+        "desc": "Apply index division law"
+      },
+      {
+        "step": "$= x^{11} y^{20}$",
+        "mark": "1A",
+        "desc": "Simplify to positive power"
+      }
+    ],
+    "pitfallsZh": "$14 - (-6) = 20$，注意负负得正。",
+    "pitfallsEn": "$14 - (-6) = 20$, check negative signs during division.",
+    "finalAnswer": "x^{11} y^{20}"
+  },
+  {
+    "id": "2015_Q1",
+    "year": 2015,
+    "qNum": "Q1",
+    "topicId": 2,
+    "topicName": "指数律 Indices Laws",
+    "topicNameEn": "Indices Laws",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2015 DSE A1 Q1",
+    "titleZh": "2015 DSE 卷一 第1题：指数化简",
+    "titleEn": "2015 DSE Paper 1 Q1: Simplify Exponential Expression",
+    "questionZh": "化简 $\\frac{m^9}{(m^3 n^7)^5}$，并以正指数表示答案。",
+    "questionEn": "Simplify $\\frac{m^9}{(m^3 n^7)^5}$ and express your answer with positive indices.",
+    "solutionZh": [
+      {
+        "step": "$(m^3 n^7)^5 = m^{15} n^{35}$",
+        "mark": "1M",
+        "desc": "展开分母括号"
+      },
+      {
+        "step": "$\\frac{m^9}{m^{15} n^{35}} = m^{9-15} n^{-35} = m^{-6} n^{-35}$",
+        "mark": "1M",
+        "desc": "同底数指数相减"
+      },
+      {
+        "step": "$= \\frac{1}{m^6 n^{35}}$",
+        "mark": "1A",
+        "desc": "化为正指数式"
+      }
+    ],
+    "solutionEn": [
+      {
+        "step": "$(m^3 n^7)^5 = m^{15} n^{35}$",
+        "mark": "1M",
+        "desc": "Expand denominator using power law"
+      },
+      {
+        "step": "$\\frac{m^9}{m^{15} n^{35}} = m^{9-15} n^{-35} = m^{-6} n^{-35}$",
+        "mark": "1M",
+        "desc": "Subtract powers of $m$"
+      },
+      {
+        "step": "$= \\frac{1}{m^6 n^{35}}$",
+        "mark": "1A",
+        "desc": "Express answer with positive indices"
+      }
+    ],
+    "pitfallsZh": "$m$ 的次方在分母 $15 > 9$，因此留在大分母下为 $m^6$。",
+    "pitfallsEn": "$m^{15}$ is in the denominator, so result is $1/(m^6 n^{35})$.",
+    "finalAnswer": "1 / (m^6 n^{35})"
+  },
+  {
+    "id": "2014_Q1",
+    "year": 2014,
+    "qNum": "Q1",
+    "topicId": 2,
+    "topicName": "指数律 Indices Laws",
+    "topicNameEn": "Indices Laws",
+    "difficulty": "Easy",
+    "marks": 3,
+    "yearRef": "2014 DSE A1 Q1",
+    "titleZh": "2014 DSE 卷一 第1题：指数化简",
+    "titleEn": "2014 DSE Paper 1 Q1: Simplify Exponential Expression",
+    "questionZh": "化简 $\\frac{(xy^{-2})^3}{y^4}$，并以正指数表示答案。",
+    "questionEn": "Simplify $\\frac{(xy^{-2})^3}{y^4}$ and express your answer with positive indices.",
+    "solutionZh": [
+      {
+        "step": "$(xy^{-2})^3 = x^3 y^{-6}$",
+        "mark": "1M",
+        "desc": "展开分子次方"
+      },
+      {
+        "step": "$\\frac{x^3 y^{-6}}{y^4} = x^3 y^{-6 - 4} = x^3 y^{-10}$",
+        "mark": "1M",
+        "desc": "同底数 $y$ 指数相减"
+      },
+      {
+        "step": "$= \\frac{x^3}{y^{10}}$",
+        "mark": "1A",
+        "desc": "改写为正指数表示"
+      }
+    ],
+    "solutionEn": [
+      {
+        "step": "$(xy^{-2})^3 = x^3 y^{-6}$",
+        "mark": "1M",
+        "desc": "Expand numerator using index laws"
+      },
+      {
+        "step": "$\\frac{x^3 y^{-6}}{y^4} = x^3 y^{-6 - 4} = x^3 y^{-10}$",
+        "mark": "1M",
+        "desc": "Subtract exponents for base $y$"
+      },
+      {
+        "step": "$= \\frac{x^3}{y^{10}}$",
+        "mark": "1A",
+        "desc": "Express answer in positive index form"
+      }
+    ],
+    "pitfallsZh": "$y^{-6}/y^4 = y^{-10} = 1/y^{10}$，注意指数相减时为 $-6 - 4 = -10$。",
+    "pitfallsEn": "$-6 - 4 = -10$, move $y^{10}$ to denominator for positive exponent.",
+    "finalAnswer": "x^3 / y^{10}"
+  }
+];
+
+    let currentQuestions = [...defaultDataset];
     let currentLang = 'zh';
 
-    window.addEventListener('DOMContentLoaded', async () => {
-      await fetchQuestionsFromMd();
+    window.addEventListener('DOMContentLoaded', () => {
+      populateFilterOptions();
+      renderQuestions();
+      document.getElementById('json-input').value = JSON.stringify(defaultDataset, null, 2);
     });
-
-    // 核心功能：自动抓取同目录下的 hkdse_math_question_bank.md 文件
-    async function fetchQuestionsFromMd() {
-      const icon = document.getElementById('sync-icon');
-      const statusText = document.getElementById('sync-text');
-
-      try {
-        // 抓取 GitHub 仓库根目录下的 hkdse_math_question_bank.md
-        const response = await fetch('./hkdse_math_question_bank.md', { cache: "no-cache" });
-        if (!response.ok) {
-          throw new Error(`HTTP 状态码: ${response.status}`);
-        }
-        
-        let text = await response.text();
-        // 滤除 Markdown 可能包含的代码块标记 ```json ... ```
-        text = text.replace(/```json/g, '').replace(/```/g, '').trim();
-
-        const data = JSON.parse(text);
-
-        if (Array.isArray(data) && data.length > 0) {
-          currentQuestions = data;
-          defaultDataset = [...data];
-          document.getElementById('json-input').value = JSON.stringify(data, null, 2);
-
-          // 更新状态灯
-          icon.className = 'fa-solid fa-circle-check text-emerald-400';
-          statusText.innerText = `已连线 md (${data.length} 题)`;
-        } else {
-          throw new Error('解析的数据不是有效的 JSON 数组');
-        }
-      } catch (err) {
-        console.warn('读取 .md 题库文件失败，将使用备用数据:', err);
-        icon.className = 'fa-solid fa-triangle-exclamation text-amber-400';
-        statusText.innerText = '使用本地内置数据';
-      } finally {
-        populateFilterOptions();
-        renderQuestions();
-      }
-    }
 
     function populateFilterOptions() {
       const topicSelect = document.getElementById('topic-filter');
@@ -304,7 +939,7 @@
                 <span class="text-indigo-600 font-mono">#${idx + 1}</span> ${title}
               </h3>
               <div class="text-slate-700 text-sm sm:text-base leading-relaxed bg-slate-50/60 p-4 rounded-lg border border-slate-100">
-                ${questionText.replace(/\n/g, '<br>')}
+                ${questionText.replace(/\\n/g, '<br>')}
               </div>
 
               <!-- Buttons -->
